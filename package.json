@@ -1,0 +1,11 @@
+{
+  "name": "elaborato-esame",
+  "version": "1.0.0",
+  "description": "Elaborato esame di stato 2021",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Devigus Mattia",
+  "license": "ISC"
+}
