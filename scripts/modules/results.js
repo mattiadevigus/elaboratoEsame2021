@@ -6,6 +6,7 @@ exports.getAllJsonFiles = (filespath) => {
     files.forEach(file => {
         arr.push(this.getJsonFile(filespath + "\\"+ file));
     })
+
     return arr;
 }
 
@@ -15,20 +16,30 @@ exports.getJsonFile = (filename) => {
     return data;
 }
 
+exports.getDataFile = (filespath) => {
+    let data = fs.stat(filespath, (err, stat) => {
+        return stat.birthtime;
+    })
+    return data;
+}
+
 exports.getTrackName = (arr) => {
     let tracks = [];
     arr.forEach(obj => {
         tracks.push(obj["trackName"]);
     })
+
     return tracks;
 }
 
 exports.getBestLap = (arr) => {
-    let sectors = [];
+    let best = [];
     arr.forEach(obj => {
-        sectors.push(obj["sessionResult"].bestSplits);
+        best.push(obj["sessionResult"].bestlap);
+        console.log(obj)
     })
-    return sectors;
+
+    return best;
 } 
 
 exports.getWeather = (arr) => {
@@ -36,6 +47,7 @@ exports.getWeather = (arr) => {
     arr.forEach(obj => {
         weather.push(obj["sessionResult"].isWetSession);
     })
+
     return weather;
 }
 
@@ -53,7 +65,7 @@ exports.getAllLapsFromDriver = (arr, id) => {
     let i = 0;
     arr.forEach((obj, index) => {
         while(obj.laps[i] != undefined) {
-            if(obj.laps[i].carId === id) times.push(obj.laps[i]);
+            if(obj.laps[i].carId === id && obj.laps[i].isValidForBest === true) times.push(obj.laps[i]);
             i++;
         }
     })
@@ -61,9 +73,10 @@ exports.getAllLapsFromDriver = (arr, id) => {
     return times;
 }
 
-
 exports.removeEscape = (string) => {
     string = string.replace(/[\u0000-\u0019]+/g, "");
     return JSON.parse(string);
 }
+
+
 
