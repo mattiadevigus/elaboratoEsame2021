@@ -13,6 +13,7 @@ exports.getAllJsonFiles = (filespath) => {
 exports.getJsonFile = (filename) => {
     let data = fs.readFileSync(filename).toString();
     data = this.removeEscape(data);
+
     return data;
 }
 
@@ -20,7 +21,25 @@ exports.getDataFile = (filespath) => {
     let data = fs.stat(filespath, (err, stat) => {
         return stat.birthtime;
     })
+
     return data;
+}
+
+exports.getServerName = (arr) => {
+    let serverName = [];
+    arr.forEach(obj => {
+        serverName.push(obj["serverName"]);
+    })
+
+    return serverName;
+}
+
+exports.getSessionType = (arr) => {
+    let sessionType = [];
+    arr.forEach(obj => {
+        sessionType.push(obj["sessionType"]);
+    })
+    return sessionType;
 }
 
 exports.getTrackName = (arr) => {
@@ -36,7 +55,6 @@ exports.getBestLap = (arr) => {
     let best = [];
     arr.forEach(obj => {
         best.push(obj["sessionResult"].bestlap);
-        console.log(obj)
     })
 
     return best;
@@ -77,6 +95,3 @@ exports.removeEscape = (string) => {
     string = string.replace(/[\u0000-\u0019]+/g, "");
     return JSON.parse(string);
 }
-
-
-

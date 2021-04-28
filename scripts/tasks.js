@@ -10,17 +10,26 @@ exports.startup = () => {
     let j= 0;
     for (let session of sessions) {
         let i = 0;
-        let trackNames = results.getTrackName(arr);
+        
+        let serverName = results.getServerName(arr);
+        let trackName = results.getTrackName(arr);
+        let sessionType = results.getSessionType(arr);
+        let weatherValue = results.getWeather(arr);
         let bestTime = results.getBestLap(arr);
 
-        console.log("Track: "  + (trackNames[j]+1));
+        /* console.log(colors.red("----------------------------------------------------------------------"));
+        console.log("Session type: " + sessionType[j]);
+        console.log("Track: "  + (trackName[j]+1));
         console.log("Session: " + (j+1));
-        console.log("Best time: " + colors.magenta(bestTime[j]));
+        console.log("Weather quantity: " + (weatherValue) + "/1");
+        console.log("Best time: " + colors.magenta(bestTime[j])); */
 
+        let idSession = database.createSession(serverName[j], trackName[j], weatherValue[j], sessionType[j]);
+        console.log(idSession);
         
         while (session[i] != undefined) {
             let fullName = session[i].currentDriver["firstName"] + " " + session[i].currentDriver["lastName"];
-            console.log(fullName + ":");
+            /* console.log(fullName + ":"); */
 
             let idCar = session[i].car["carId"];
             let times = results.getAllLapsFromDriver(arr, idCar);
@@ -29,9 +38,10 @@ exports.startup = () => {
             for (let time of times) {
                 timeDriver.push(time.splits);
             } 
-            console.log(timeDriver);
+            /* console.log(timeDriver); */
             i++;
         }
+        
         j++;
     }
 }
