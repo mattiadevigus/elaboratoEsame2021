@@ -1,5 +1,6 @@
 const pathDb = "./public/tracker.db";
-const Sqlite = require('better-sqlite3')
+const timeParse = require('./time');
+const Sqlite = require('better-sqlite3');
 
 exports.createSession = ((serverName, trackName, weatherValue, sessionType) => {
     const db = new Sqlite(pathDb, { verbose: console.log });
@@ -12,4 +13,13 @@ exports.createSession = ((serverName, trackName, weatherValue, sessionType) => {
 
     db.close();
     return lastId["ses_id"];
-})
+});
+
+exports.insertTime = ((driverName, carModel, time, lastId) => {
+    const db = new Sqlite(pathDb, {verbose: console.log});
+
+    let stmt = db.prepare(`INSERT INTO Times VALUES(NULL, ?, ?, ?, ?, ?, ?)`);
+    stmt.run(driverName, carModel, timeParse.getSeconds(time[0]) , timeParse.getSeconds(time[1]), timeParse.getSeconds(time[2]), lastId);
+
+    db.close();
+});
