@@ -1,3 +1,6 @@
+const pathDb = "./public/tracker.db";
+const sqlite = require('better-sqlite3');
+
 exports.getHome = (req, res) => {
-    res.send("Hello World");
+    let db = new sqlite(pathDb);
 }

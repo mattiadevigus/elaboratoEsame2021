@@ -17,6 +17,17 @@ exports.getJsonFile = (filename) => {
     return data;
 }
 
+exports.getAllJsonDataCreation = (filespath) => {
+    let dates = [];
+    let files = fs.readdirSync(filespath);
+    files.forEach(file => {
+        let dateCreation = fs.statSync((filespath + "\\" + file));
+        dates.push(dateCreation["ctime"]);
+    })
+
+    return dates;
+}
+
 exports.getDataFile = (filespath) => {
     let data = fs.stat(filespath, (err, stat) => {
         return stat.birthtime;
@@ -39,6 +50,7 @@ exports.getSessionType = (arr) => {
     arr.forEach(obj => {
         sessionType.push(obj["sessionType"]);
     })
+
     return sessionType;
 }
 
@@ -93,5 +105,6 @@ exports.getAllLapsFromDriver = (arr, id) => {
 
 exports.removeEscape = (string) => {
     string = string.replace(/[\u0000-\u0019]+/g, "");
+    
     return JSON.parse(string);
 }
