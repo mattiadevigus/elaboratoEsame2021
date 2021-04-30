@@ -18,11 +18,12 @@ exports.startup = () => {
         const sessionType = results.getSessionType(arr);
         const weatherValue = results.getWeather(arr);
         const idSession = database.createSession(serverName[j], trackName[j], weatherValue[j], sessionType[j], arrDates[j]);
-
+        
         let i = 0;
         
         // retrieve data from single driver and insert time into db
         while (session[i] != undefined) {
+            console.log(session);
             let fullName = session[i].currentDriver["firstName"] + " " + session[i].currentDriver["lastName"];
             let carModel = session[i].car["carModel"];
             let idCar = session[i].car["carId"];
