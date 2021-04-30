@@ -3,6 +3,22 @@ body {
     color: #c5c5c5;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #202020;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+  
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 nav {
     border-bottom: 1px solid #6b0303;
     background-color: #202020;
@@ -151,25 +167,29 @@ nav {
     padding: 20px;
 }
 
-#sessionList tr:hover td {
-    background-color: #6b0303;
-    transition: .3s;
-}
-
 #sessionList td {
     vertical-align: middle;
+    color: #c5c5c5;
 }
 
 #sessionList td img {
     width: 5rem;
 }
 
-#sessionList td img:nth-child(2) {
-    width: 6rem;
+#sessionList td a {
+    text-decoration: none;
+    color: #c5c5c5;
+    transition: .1s;
+}
+
+#sessionList td a:hover {
+    text-decoration: none;
+    color: #6b0303;
 }
 
 #sessionList i {
     font-size: 1.7rem;
 }
+
 
 

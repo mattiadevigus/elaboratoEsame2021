@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from './../Partials/Navbar';
 import Base from '../../Modules/Base';
 import axios from 'axios';
@@ -57,70 +58,33 @@ class App extends Component {
                                     <th>Track</th>
                                     <th>Weather</th>
                                     <th>Type</th>
+                                    <th>Detail</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.state.data.map((session, i) => {
-                                    return(
-                                    <tr>
-                                        <td>{session.ses_serverName}</td>
-                                        <td>{session.ses_creation.split("GMT")[0]}</td>
-                                        <td>{session.ses_track}</td>
-                                        <td>{session.ses_weather}</td>
-                                        <td>{session.ses_type}</td>
-                                    </tr>)
-                                })}
-                                <tr>
-                                    <td>Nome del server</td>
-                                    <td>20 Novembre 2021</td>
-                                    <td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Spain.svg/750px-Flag_of_Spain.svg.png" alt="flag" /> | <img src="https://www.formula1.it/admin/foto/circuiti/circuito_3.png" alt="" /></td>
-                                    <td><i className="fas fa-cloud-rain"></i></td>
-                                    <td>FP</td>
-                                </tr>
-                                <tr>
-                                    <td>Nome del server</td>
-                                    <td>20 Novembre 2021</td>
-                                    <td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Spain.svg/750px-Flag_of_Spain.svg.png" alt="flag" /> | <img src="https://www.formula1.it/admin/foto/circuiti/circuito_3.png" alt="" /></td>
-                                    <td><i className="fas fa-cloud-rain"></i></td>
-                                    <td>FP</td>
-                                </tr>
-                                <tr>
-                                    <td>Nome del server</td>
-                                    <td>20 Novembre 2021</td>
-                                    <td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Spain.svg/750px-Flag_of_Spain.svg.png" alt="flag" /> | <img src="https://www.formula1.it/admin/foto/circuiti/circuito_3.png" alt="" /></td>
-                                    <td><i className="fas fa-cloud-rain"></i></td>
-                                    <td>FP</td>
-                                </tr>
-                                <tr>
-                                    <td>Nome del server</td>
-                                    <td>20 Novembre 2021</td>
-                                    <td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Spain.svg/750px-Flag_of_Spain.svg.png" alt="flag" /> | <img src="https://www.formula1.it/admin/foto/circuiti/circuito_3.png" alt="" /></td>
-                                    <td><i className="fas fa-cloud-rain"></i></td>
-                                    <td>FP</td>
-                                </tr>
-                                <tr>
-                                    <td>Sas</td>
-                                    <td>Sas</td>
-                                    <td>Sas</td>
-                                    <td>Sas</td>
-                                </tr>
-                                <tr>
-                                    <td>Sas</td>
-                                    <td>Sas</td>
-                                    <td>Sas</td>
-                                    <td>Sas</td>
-                                </tr>
-                                <tr>
-                                    <td>Sas</td>
-                                    <td>Sas</td>
-                                    <td>Sas</td>
-                                    <td>Sas</td>
-                                </tr>
+                                {
+                                    this.state.data.map((session, i) => {
+                                        return (
+
+                                            <tr>
+
+                                                <td>{session.ses_serverName}</td>
+                                                <td>{session.ses_creation.split("GMT")[0]}</td>
+                                                <td><img src={session.tra_flag} alt="" /> | <img src={session.tra_track} /></td>
+                                                <td> {(session.ses_weather < 0.1 ? <i className="fas fa-sun"></i> : <i className="fas fa-cloud-rain"></i>)} </td>
+                                                <td>{session.ses_type}</td>
+                                                <td><Link to={`session/${session.ses_id}`}><i className="fas fa-arrow-circle-right"></i></Link></td>
+
+                                            </tr>
+
+
+                                        )
+                                    })}
                             </tbody>
                         </table>
                     </div>
                 </section>
-            </div>
+            </div >
         )
     }
 }
