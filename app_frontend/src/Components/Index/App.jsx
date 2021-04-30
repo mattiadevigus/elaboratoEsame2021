@@ -16,7 +16,7 @@ class App extends Component {
     }
 
     componentDidMount = () => {
-        axios.get(`http://${Base.getIp()}:${Base.getPort()}/`)
+        axios.get(`http://${Base.getIp()}:${Base.getPort()}`)
             .then((res) => {
                 this.setState({ data: res.data });
             })

@@ -35,7 +35,7 @@ nav {
     padding-right: 0.4em;
 }
 
-#homeSection, #homeSection2 {
+#homeSection, #homeSection2, #sessionSection {
     width: 100%;
     height: 100vh;
     display: flex;

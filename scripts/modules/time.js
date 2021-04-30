@@ -1,4 +1,4 @@
 exports.getSeconds = (seconds) => {
-    return (seconds/1000).toFixed(3);
+    return parseFloat((seconds/1000).toFixed(3));
 }
 

@@ -13,7 +13,6 @@ ReactDOM.render(
       <Switch>
         <Route exact path="/" component={() => <App />} />
         <Route exact path="/session/:id" component={() => <Session />} />
-
         <App />
       </Switch>
     </Router>
