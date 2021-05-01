@@ -20,13 +20,18 @@ body {
 }
 
 nav {
-    border-bottom: 1px solid #6b0303;
+    border-bottom: 1px solid #8b0000;
     background-color: #202020;
     box-shadow: 0 0 5px #080808 ;
 }
 
-.navbar-brand img {
-    width: 2.2em;
+nav span {
+    color: #8b0000;
+    font-size: 50px !important;
+}
+
+nav img {
+    width: 10em;
     padding-left: 0.4em;
 }
 
@@ -43,15 +48,15 @@ nav {
     align-items: center;
     justify-content: center;
     text-align: center;
-    border-bottom: 1px solid #6b0303;
+    border-bottom: 1px solid #8b0000;
 }
 
 #homeContainer {
-    width: 40%;
+    width: 35%;
 }
 
 #homeContainer img {
-    width: 40%;
+    width: 35%;
 }
 
 #homeContainer a{
@@ -97,8 +102,8 @@ nav {
 }
 
 .arrow:hover span{
-    border-bottom: 5px solid #6b0303;
-    border-right: 5px solid #6b0303;
+    border-bottom: 5px solid #8b0000;
+    border-right: 5px solid #8b0000;
 }
 
 .arrow span:nth-child(2){
@@ -112,7 +117,7 @@ nav {
 @keyframes animate {
     0%{
         opacity: 0;
-        transform: rotate(45deg) translate(-20px,-20px);
+        transform: rotate(45deg) translate(0,0);
     }
     50%{
         opacity: 1;
@@ -128,7 +133,7 @@ nav {
 }
 
 #homeTitle i, #sessionTitle i {
-    font-size: 25px;
+    font-size: 40px;
 }
 
 #homeDesc {
@@ -151,7 +156,7 @@ nav {
 #sessionList thead {
     position: sticky;
     top: 0;
-    border-bottom: 1px solid #6b0303;
+    border-bottom: 1px solid #8b0000;
     background-color: #1d1d1d;
     color: white;
     z-index: 1;
@@ -184,7 +189,7 @@ nav {
 
 #sessionList td a:hover {
     text-decoration: none;
-    color: #6b0303;
+    color: #8b0000;
 }
 
 #sessionList i {
@@ -209,8 +214,8 @@ nav {
     align-self: center !important; 
 }
 
-.bestElement {
-    color: #5f005f;
+.bestEle {
+    color: #9e009e;
 }
 
 .rotate {
@@ -220,6 +225,10 @@ nav {
 .fa-spin {
     -webkit-animation: fa-spin 15s linear infinite !important;
     animation: fa-spin 15s linear infinite !important;
+}
+
+.statYellow {
+    color: #e09200;
 }
 
 .statRed {

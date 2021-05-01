@@ -32,5 +32,5 @@ exports.getFullTime = (seconds) => {
 exports.getGap = (bestTime, currentTime) => {
     let gap = bestTime - currentTime;
     
-    return (gap == 0 ? "-" : "+" + (this.getFullTime(gap)*-1).toFixed(3)) ;
+    return (gap === 0 ? "-" : "+" + (this.getFullTime(gap)*-1).toFixed(3)) ;
 }

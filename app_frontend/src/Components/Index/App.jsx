@@ -17,10 +17,11 @@ class App extends Component {
 
     componentDidMount = () => {
         window.scrollTo(0, 0);
+
         axios.get(`http://${Base.getIp()}:${Base.getPort()}`)
             .then((res) => {
                 this.setState({ data: res.data });
-            })
+            });
     }
 
     render = () => {
@@ -48,7 +49,7 @@ class App extends Component {
                     <div id="homeTitle">
                         <i className="fas fa-clock"></i>
                         <hr />
-                        <h3>SESSIONS LIST</h3>
+                        <h1>SESSIONS LIST</h1>
                     </div>
                     <div id="homeContainer2">
                         <table id="sessionList">
@@ -66,7 +67,6 @@ class App extends Component {
                                 {
                                     this.state.data.map((session, i) => {
                                         return (
-
                                             <tr>
                                                 <td>{session.ses_serverName}</td>
                                                 <td>{session.ses_creation.split("GMT")[0]}</td>
@@ -75,7 +75,6 @@ class App extends Component {
                                                 <td>{session.ses_type}</td>
                                                 <td><Link target="_blank" to={`session/${session.ses_id}`}><i className="fas fa-arrow-circle-right"></i></Link></td>
                                             </tr>
-
                                         )
                                     })}
                             </tbody>

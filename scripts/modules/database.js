@@ -37,7 +37,7 @@ exports.sessionCollections = () => {
 
 exports.timesCollection = (sessionId) => {
     const db = new sqlite(pathDb);
-    let stmt = db.prepare(`SELECT *, sum(tim_sectorOne + tim_sectorTwo + tim_sectorTree) as tim_totalTime FROM Times INNER JOIN Sessions ON ses_id = tim_sessionId WHERE ses_id = ? GROUP BY tim_driverName, tim_sectorOne, tim_sectorTwo, tim_sectorTree ORDER BY tim_totalTime ASC;`);
+    let stmt = db.prepare(`SELECT * FROM (SELECT *, sum(tim_sectorOne + tim_sectorTwo + tim_sectorTree) as tim_totalTime FROM Times INNER JOIN Sessions ON ses_id = tim_sessionId WHERE ses_id = ? GROUP BY tim_driverName, tim_sectorOne, tim_sectorTwo, tim_sectorTree ORDER BY tim_totalTime ASC) GROUP BY tim_driverName ORDER BY tim_totalTime ASC `);
     let times = stmt.all(sessionId);
 
     db.close();
@@ -56,8 +56,11 @@ exports.sessionDetails = (sessionId) => {
     stmt = db.prepare(`SELECT tim_driverName, tim_sectorOne, tim_sectorTwo, tim_sectorTree, sum(tim_sectorOne + tim_sectorTwo+ tim_sectorTree) as tim_totalTime FROM Times INNER JOIN Sessions on tim_sessionId = ses_id WHERE ses_id = ? GROUP BY tim_driverName, tim_sectorOne, tim_sectorTwo, tim_sectorTree ORDER BY tim_totalTime ASC LIMIT 1`);
     let bestTime = stmt.get(sessionId);
 
+    stmt = db.prepare(`SELECT min(tim_sectorOne) as bestSectorOne, min(tim_sectorTwo) as bestSectorTwo, min(tim_sectorTree) as bestSectorTree FROM Times INNER JOIN Sessions ON tim_sessionId = ses_id WHERE ses_id = ?`);
+    let bestSectors = stmt.get(sessionId);
+
     db.close();
 
-    return [serverInfo, driverCount, bestTime];
+    return [serverInfo, driverCount, bestTime, bestSectors];
 
 }
