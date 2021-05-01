@@ -21,10 +21,16 @@ exports.getFullTime = (seconds) => {
     }
     seconds = seconds.toFixed(3);
     
-    if (minutes == 0) {
+    if (minutes === 0) {
         tot = seconds;
     } else {
         tot = seconds < 10 ? minutes + ":0" + seconds : minutes + ":" + seconds;
     }
     return tot;
+}
+
+exports.getGap = (bestTime, currentTime) => {
+    let gap = bestTime - currentTime;
+    
+    return (gap == 0 ? "-" : "+" + (this.getFullTime(gap)*-1).toFixed(3)) ;
 }

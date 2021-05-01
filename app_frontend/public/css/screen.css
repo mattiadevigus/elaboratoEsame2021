@@ -1,9 +1,11 @@
 /* Smarthphone */
 @media only screen 
 and (max-width : 768px) {
+
     section {
         height: calc(var(--vh, 1vh) * 100) !important;
     }
+
 }
 
 /* Tablet */
@@ -12,8 +14,21 @@ and (max-width : 989px) and (min-width : 769px) {
 
 }
 
+/* Laptops */
+@media only screen 
+and (max-width : 1400px) {
+
+    .row {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    #sessionContainer #statSession {
+        font-size: 4em;
+    }
+}
+
 /* Desktops and laptops ----------- */
 @media only screen 
-and (min-width : 990px) {
-
+and (min-width : 1401px) {
 }

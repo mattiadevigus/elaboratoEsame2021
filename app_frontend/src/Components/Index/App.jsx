@@ -16,6 +16,7 @@ class App extends Component {
     }
 
     componentDidMount = () => {
+        window.scrollTo(0, 0);
         axios.get(`http://${Base.getIp()}:${Base.getPort()}`)
             .then((res) => {
                 this.setState({ data: res.data });
@@ -67,16 +68,13 @@ class App extends Component {
                                         return (
 
                                             <tr>
-
                                                 <td>{session.ses_serverName}</td>
                                                 <td>{session.ses_creation.split("GMT")[0]}</td>
                                                 <td><img src={session.tra_flag} alt="" /> | <img src={session.tra_track} /></td>
                                                 <td> {(session.ses_weather < 0.1 ? <i className="fas fa-sun"></i> : <i className="fas fa-cloud-rain"></i>)} </td>
                                                 <td>{session.ses_type}</td>
-                                                <td><Link to={`session/${session.ses_id}`}><i className="fas fa-arrow-circle-right"></i></Link></td>
-
+                                                <td><Link target="_blank" to={`session/${session.ses_id}`}><i className="fas fa-arrow-circle-right"></i></Link></td>
                                             </tr>
-
 
                                         )
                                     })}

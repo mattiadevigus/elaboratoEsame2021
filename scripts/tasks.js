@@ -17,7 +17,7 @@ exports.startup = () => {
         for(let driver of leaderboards) {
             let times = results.getAllLapsFromDriver(session, driver.car["carId"]);
             for(let time of times) {
-                database.insertTime((driver.currentDriver["firstName"] + driver.currentDriver["lastName"]), driver.car["carModel"], time, idSession);
+                database.insertTime((driver.currentDriver["firstName"] + " " + driver.currentDriver["lastName"]), driver.car["carModel"], time, idSession);
             }
         }
 

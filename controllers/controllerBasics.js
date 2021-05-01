@@ -6,5 +6,6 @@ exports.getHome = (req, res) => {
 }
 
 exports.getSessionTimes = (req, res) => {
-    res.send(db.timesCollection(req.params.id));
+    console.log();
+    res.send([db.timesCollection(req.params.id), db.sessionDetails(req.params.id)]);
 }

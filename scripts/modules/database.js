@@ -37,9 +37,27 @@ exports.sessionCollections = () => {
 
 exports.timesCollection = (sessionId) => {
     const db = new sqlite(pathDb);
-    let stmt = db.prepare(`SELECT *, sum(tim_sectorOne + tim_sectorTwo + tim_sectorTree) as tim_totalTime FROM Times INNER JOIN Sessions ON ses_id = tim_sessionId WHERE ses_id = ${sessionId} GROUP BY tim_driverName ORDER BY tim_totalTime ASC;`);
-    let times = stmt.all();
+    let stmt = db.prepare(`SELECT *, sum(tim_sectorOne + tim_sectorTwo + tim_sectorTree) as tim_totalTime FROM Times INNER JOIN Sessions ON ses_id = tim_sessionId WHERE ses_id = ? GROUP BY tim_driverName, tim_sectorOne, tim_sectorTwo, tim_sectorTree ORDER BY tim_totalTime ASC;`);
+    let times = stmt.all(sessionId);
 
     db.close();
     return times;
+}
+
+exports.sessionDetails = (sessionId) => {
+    const db = new sqlite(pathDb);
+
+    let stmt = db.prepare(`SELECT ses_serverName, ses_weather FROM Sessions WHERE ses_id = ?`);
+    let serverInfo = stmt.get(sessionId);
+
+    stmt = db.prepare(`SELECT count(tim_driverName) as tim_driverCount FROM (SELECT tim_driverName FROM Times WHERE tim_sessionId = ? GROUP BY tim_driverName);`);
+    let driverCount = stmt.get(sessionId);
+
+    stmt = db.prepare(`SELECT tim_driverName, tim_sectorOne, tim_sectorTwo, tim_sectorTree, sum(tim_sectorOne + tim_sectorTwo+ tim_sectorTree) as tim_totalTime FROM Times INNER JOIN Sessions on tim_sessionId = ses_id WHERE ses_id = ? GROUP BY tim_driverName, tim_sectorOne, tim_sectorTwo, tim_sectorTree ORDER BY tim_totalTime ASC LIMIT 1`);
+    let bestTime = stmt.get(sessionId);
+
+    db.close();
+
+    return [serverInfo, driverCount, bestTime];
+
 }
