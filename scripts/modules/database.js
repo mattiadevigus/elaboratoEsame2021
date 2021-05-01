@@ -8,8 +8,8 @@ exports.createSession = (serverName, trackName, weatherValue, sessionType, dataC
     let stmt = db.prepare(`INSERT OR IGNORE INTO Sessions VALUES(NULL, ?, ?, ?, ?, ?)`);
     stmt.run(serverName, trackName, weatherValue, sessionType, dataCreation.toString());
 
-    stmt = db.prepare(`SELECT ses_id FROM Sessions ORDER BY ses_id DESC LIMIT 1`);
-    let lastId = stmt.get();
+    stmt = db.prepare(`SELECT ses_id FROM Sessions WHERE ses_creation = ?`);
+    let lastId = stmt.get(dataCreation.toString());
 
     db.close();
 

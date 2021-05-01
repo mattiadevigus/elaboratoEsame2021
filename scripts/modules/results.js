@@ -4,7 +4,7 @@ exports.getAllJsonFiles = (filespath) => {
     let arr = [];
     let files = fs.readdirSync(filespath);
     files.forEach(file => {
-        arr.push(this.getJsonFile(filespath + "\\"+ file));
+        arr.push(this.getJsonFile(filespath + "\\" + file));
     })
 
     return arr;
@@ -22,7 +22,7 @@ exports.getAllJsonDataCreation = (filespath) => {
     let files = fs.readdirSync(filespath);
     files.forEach(file => {
         let dateCreation = fs.statSync((filespath + "\\" + file));
-        dates.push(dateCreation["ctime"]);
+        dates.push(dateCreation["birthtime"]);
     })
 
     return dates;
@@ -30,81 +30,50 @@ exports.getAllJsonDataCreation = (filespath) => {
 
 exports.getDataFile = (filespath) => {
     let data = fs.stat(filespath, (err, stat) => {
-        return stat.birthtime;
+        return stat.mtime;
     })
 
     return data;
 }
 
 exports.getServerName = (arr) => {
-    let serverName = [];
-    arr.forEach(obj => {
-        serverName.push(obj["serverName"]);
-    })
-
-    return serverName;
+    return arr["serverName"];
 }
 
 exports.getSessionType = (arr) => {
-    let sessionType = [];
-    arr.forEach(obj => {
-        sessionType.push(obj["sessionType"]);
-    })
-
-    return sessionType;
+    return arr["sessionType"];
 }
 
 exports.getTrackName = (arr) => {
-    let tracks = [];
-    arr.forEach(obj => {
-        tracks.push(obj["trackName"]);
-    })
-
-    return tracks;
+    return arr["trackName"];
 }
 
 exports.getBestLap = (arr) => {
-    let best = [];
-    arr.forEach(obj => {
-        best.push(obj["sessionResult"].bestlap);
-    })
-
-    return best;
-} 
+    return arr["sessionResult"].bestlap;
+}
 
 exports.getWeather = (arr) => {
-    let weather = [];
-    arr.forEach(obj => {
-        weather.push(obj["sessionResult"].isWetSession);
-    })
-
-    return weather;
+    return arr["sessionResult"].isWetSession;
 }
 
 exports.getFullLeaderBoard = (arr) => {
-    let leaderboard = [];
-    arr.forEach(obj => {
-        leaderboard.push(obj["sessionResult"].leaderBoardLines);
-    })
-
-    return leaderboard;
+    return arr["sessionResult"].leaderBoardLines;
 }
 
 exports.getAllLapsFromDriver = (arr, id) => {
     let times = [];
     let i = 0;
-    arr.forEach((obj, index) => {
-        while(obj.laps[i] != undefined) {
-            if(obj.laps[i].carId === id && obj.laps[i].isValidForBest === true) times.push(obj.laps[i]);
-            i++;
-        }
-    })
+    
+    while (arr.laps[i] != undefined) {
+        if (arr.laps[i].carId === id && arr.laps[i].isValidForBest === true) times.push(arr.laps[i].splits);
+        i++;
+    }
 
-    return times;
+    return times; 
 }
 
 exports.removeEscape = (string) => {
     string = string.replace(/[\u0000-\u0019]+/g, "");
-    
+
     return JSON.parse(string);
 }

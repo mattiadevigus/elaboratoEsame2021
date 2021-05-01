@@ -7,36 +7,22 @@ exports.startup = () => {
     // retrieve data from json
     const arr = results.getAllJsonFiles("C:\\Users\\matti\\Desktop\\Scottish Gaming League Server\\results");
     const arrDates = results.getAllJsonDataCreation("C:\\Users\\matti\\Desktop\\Scottish Gaming League Server\\results");
-    const sessions = results.getFullLeaderBoard(arr);
-    let j= 0;
 
-    // for each sessions
-    for (let session of sessions) {
-        // retrieve data from single session and create session into db
-        const serverName = results.getServerName(arr);
-        const trackName = results.getTrackName(arr);
-        const sessionType = results.getSessionType(arr);
-        const weatherValue = results.getWeather(arr);
-        const idSession = database.createSession(serverName[j], trackName[j], weatherValue[j], sessionType[j], arrDates[j]);
+    let j = 0;
+
+    for(let session of arr) {
+        let idSession = database.createSession(results.getServerName(session), results.getTrackName(session), results.getWeather(session), results.getSessionType(session), arrDates[j]);
+        let leaderboards = results.getFullLeaderBoard(session);
         
-        let i = 0;
-        
-        // retrieve data from single driver and insert time into db
-        while (session[i] != undefined) {
-            console.log(session);
-            let fullName = session[i].currentDriver["firstName"] + " " + session[i].currentDriver["lastName"];
-            let carModel = session[i].car["carModel"];
-            let idCar = session[i].car["carId"];
-            let times = results.getAllLapsFromDriver(arr, idCar);
-            let timeDriver = [];
-
-            for (let time of times) timeDriver.push(time.splits);
-
-            for(let time of timeDriver) database.insertTime(fullName, carModel, time, idSession);
-
-            i++;
+        for(let driver of leaderboards) {
+            let times = results.getAllLapsFromDriver(session, driver.car["carId"]);
+            for(let time of times) {
+                database.insertTime((driver.currentDriver["firstName"] + driver.currentDriver["lastName"]), driver.car["carModel"], time, idSession);
+            }
         }
 
         j++;
     }
+
+
 }
