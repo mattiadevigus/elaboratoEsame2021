@@ -9,4 +9,7 @@ router
 router
     .get("/session/:id", controllerBasics.getSessionTimes);
 
+router
+    .get("/session/:id/:driver", controllerBasics.getSessionDetail);
+
 module.exports = router;

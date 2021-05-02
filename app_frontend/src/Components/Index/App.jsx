@@ -7,7 +7,6 @@ import axios from 'axios';
 class App extends Component {
 
     constructor(props) {
-
         super(props);
 
         this.state = {
@@ -58,8 +57,8 @@ class App extends Component {
                                     <th>Server Name</th>
                                     <th>Date</th>
                                     <th>Track</th>
-                                    <th>Weather</th>
-                                    <th>Type</th>
+                                    <th className="only-desktop">Weather</th>
+                                    <th className="only-desktop">Type</th>
                                     <th>Detail</th>
                                 </tr>
                             </thead>
@@ -70,9 +69,9 @@ class App extends Component {
                                             <tr>
                                                 <td>{session.ses_serverName}</td>
                                                 <td>{session.ses_creation.split("GMT")[0]}</td>
-                                                <td><img src={session.tra_flag} alt="" /> | <img src={session.tra_track} /></td>
-                                                <td> {(session.ses_weather < 0.1 ? <i className="fas fa-sun"></i> : <i className="fas fa-cloud-rain"></i>)} </td>
-                                                <td>{session.ses_type}</td>
+                                                <td><img className="only-desktop" src={session.tra_flag} alt="" /> <span className="only-desktop">|</span> <img src={session.tra_track} /></td>
+                                                <td className="only-desktop"> {(session.ses_weather < 0.1 ? <i className="fas fa-sun"></i> : <i className="fas fa-cloud-rain"></i>)} </td>
+                                                <td className="only-desktop">{session.ses_type}</td>
                                                 <td><Link target="_blank" to={`session/${session.ses_id}`}><i className="fas fa-arrow-circle-right"></i></Link></td>
                                             </tr>
                                         )

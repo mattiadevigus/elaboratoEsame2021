@@ -22,6 +22,7 @@ class Session extends Component {
     componentDidMount = () => {
         window.scrollTo(0, 0);
         let id = (window.location.href).split("/")[4];
+        id = id.split("#")[0];
         document.title = `Session detail: ${id}`;
         axios.get(`http://${Base.getIp()}:${Base.getPort()}/session/${id}`)
             .then(res => {
@@ -46,28 +47,30 @@ class Session extends Component {
                                 <tr>
                                     <th>#</th>
                                     <th>Full Name</th>
-                                    <th>S1</th>
-                                    <th>S2</th>
-                                    <th>S3</th>
+                                    <th className="only-desktop">S1</th>
+                                    <th className="only-desktop">S2</th>
+                                    <th className="only-desktop">S3</th>
                                     <th>Time</th>
-                                    <th>Gap</th>
+                                    <th className="only-desktop">Gap</th>
                                     <th>Detail</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
-                                    
+
                                     this.state.data.map((time, i) => {
-                                        let driverLink = "/chart/" + time.tim_driverName;
+                                        let sesId = (window.location.href).split("/")[4];
+                                        sesId = sesId.split("#")[0];
+                                        let driverLink = "/session/" + sesId + "/" + time.tim_driverName;
                                         return (
                                             <tr>
-                                                <td>{ i + 1 }</td>
-                                                <td>{ time.tim_driverName }</td>
-                                                <td>{ ((time.tim_sectorOne === this.state.bestSessions.bestSectorOne ? <span className="bestEle">{time.tim_sectorOne}</span> : time.tim_sectorOne)) }</td>
-                                                <td>{ (time.tim_sectorTwo === this.state.bestSessions.bestSectorTwo ? <span className="bestEle">{time.tim_sectorTwo}</span> : time.tim_sectorTwo) }</td>
-                                                <td>{ (time.tim_sectorTree === this.state.bestSessions.bestSectorTree ? <span className="bestEle">{time.tim_sectorTree}</span> : time.tim_sectorTree) }</td>
-                                                <td>{ Base.getFullTime((time.tim_totalTime * 1000)) }</td>
-                                                <td>{ Base.getGap((this.state.bestTime * 1000), (time.tim_totalTime * 1000)) }</td>
+                                                <td>{i + 1}</td>
+                                                <td>{time.tim_driverName}</td>
+                                                <td className="only-desktop">{((time.tim_sectorOne === this.state.bestSessions.bestSectorOne ? <span className="bestEle">{ time.tim_sectorOne }</span> : time.tim_sectorOne))}</td>
+                                                <td className="only-desktop">{(time.tim_sectorTwo === this.state.bestSessions.bestSectorTwo ? <span className="bestEle">{ time.tim_sectorTwo }</span> : time.tim_sectorTwo)}</td>
+                                                <td className="only-desktop">{(time.tim_sectorTree === this.state.bestSessions.bestSectorTree ? <span className="bestEle">{ time.tim_sectorTree }</span> : time.tim_sectorTree)}</td>
+                                                <td>{Base.getFullTime((time.tim_totalTime * 1000))}</td>
+                                                <td className="only-desktop">{Base.getGap((this.state.bestTime * 1000), (time.tim_totalTime * 1000))}</td>
                                                 <td><Link to={driverLink}><i className="fas fa-chart-line"></i></Link></td>
                                             </tr>
                                         )
@@ -95,29 +98,29 @@ class Session extends Component {
                     <div id="sessionContainer">
                         <div className="row">
                             <div className="col-lg-1"></div>
-                            <div className="col-lg-5">
+                            <div className="col-6 col-lg-5">
                                 <h1 id="statSession"><i className="fas fa-server"></i></h1>
                                 <hr />
-                                <h3 id="statSession">{ this.state.serverName }</h3>
+                                <h3 id="statSession">{this.state.serverName}</h3>
                             </div>
-                            <div className="col-lg-5">
-                                <h1 id="statSession" className="bestEle">{ Base.getFullTime((this.state.bestTime * 1000)) }</h1>
+                            <div className="col-6 col-lg-5">
+                                <h1 id="statSession" className="bestEle">{Base.getFullTime((this.state.bestTime * 1000))}</h1>
                                 <hr />
-                                <h3 id="statSession">BEST TIME</h3>
+                                <h3 id="statSession">BEST TIME SESSION</h3>
                             </div>
                             <div className="col-lg-1"></div>
                         </div>
                         <div className="row">
                             <div className="col-lg-1"></div>
-                            <div className="col-lg-5">
-                                <h1 id="statSession"> { this.state.totalDrivers }</h1>
+                            <div className="col-6 col-lg-5">
+                                <h1 id="statSession"> {this.state.totalDrivers}</h1>
                                 <hr />
                                 <h3 id="statSession">TOTAL DRIVERS</h3>
                             </div>
-                            <div className="col-lg-5">
-                                <h1 className="rotate" id="statSession"> { (this.state.weatherValue <= 0 ? <i className="fas fa-sun fa-spin "></i> : <i className="fas fa-cloud-rain"></i>) } </h1>
+                            <div className="col-6 col-lg-5">
+                                <h1 className="rotate" id="statSession"> {(this.state.weatherValue <= 0 ? <i className="fas fa-sun fa-spin"></i> : <i className="fas fa-cloud-rain"></i>)} </h1>
                                 <hr />
-                                <h3 id="statSession">WEATHER</h3>
+                                <h3 id="statSession">WEATHER TYPE</h3>
                             </div>
                             <div className="col-lg-1"></div>
                         </div>
