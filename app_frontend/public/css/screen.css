@@ -19,6 +19,12 @@ and (max-width : 768px) {
         font-size: 3em;
     }
 
+    canvas {
+        width: 60vw !important;
+        height: 200px !important;
+        margin: 0 auto;
+    }
+
 }
 
 /* Tablet */

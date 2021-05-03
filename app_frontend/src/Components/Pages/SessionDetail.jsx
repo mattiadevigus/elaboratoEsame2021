@@ -6,14 +6,28 @@ import ChartJS from './../../Modules/Chart';
 
 class Chart extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            driverName: (((window.location.href).split("/")[5]).split("#")[0]).replace("%20", " "),
+            times: [""],
+            avgSpeed: 0,
+            bestTime: 0,
+            bestDriverTime: 0
+        }
+    }
+
     componentDidMount = () => {
         window.scrollTo(0, 0);
         let sesId = (window.location.href).split("/")[4];
         let driverId = (window.location.href).split("/")[5];
-        ChartJS.lineChart("laps");
+
         axios.get(`http://${Base.getIp()}:${Base.getPort()}/session/${sesId}/${driverId}`)
-            .then(() => {
-                /* ChartJS.lineChart(); */
+            .then((res) => {
+                console.log(res);
+                this.setState({ times: res.data[0], avgSpeed: res.data[1], bestTime: res.data[2], bestDriverTime: res.data[3] });
+                ChartJS.lineChart("laps", this.state.times);
             })
     }
 
@@ -21,10 +35,11 @@ class Chart extends Component {
         return (
             <div>
                 <section id="sessionDetailSection">
+                    <Navbar />
                     <div id="sessionTitle">
                         <i className="fas fa-poll-h"></i>
                         <hr />
-                        <h1>LAPS OF MATTIA</h1>
+                        <h1>LAPS OF <span className="baseEle">{this.state.driverName}</span></h1>
                     </div>
                     <div id="sessionContainer">
                         <table id="sessionList">
@@ -37,12 +52,27 @@ class Chart extends Component {
                                     <th>Time</th>
                                 </tr>
                             </thead>
+                            <tbody>
+                                {
+
+                                    this.state.times.map((time, i) => {
+                                        return (
+                                            <tr>
+                                                <td>{i + 1}</td>
+                                                <td className="only-desktop">{time.tim_sectorOne}</td>
+                                                <td className="only-desktop">{time.tim_sectorTwo}</td>
+                                                <td className="only-desktop">{time.tim_sectorTree}</td>
+                                                <td>{(time.tim_totalTime === this.state.bestDriverTime ? <span className="personalBestEle"> {Base.getFullTime((time.tim_totalTime * 1000))}</span> : Base.getFullTime((time.tim_totalTime * 1000)))}</td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+                            </tbody>
                         </table>
                     </div>
                     <div id="arrowCont">
                         <a href="#2">
                             <div className="arrow">
-
                                 <span></span>
                             </div>
                         </a>
@@ -50,33 +80,31 @@ class Chart extends Component {
                 </section>
                 <a name="2"></a>
                 <section id="sessionDetailSection2">
-                    <div id="sessionDetailTitle">
+                    <div id="sessionTitle">
                         <i className="fas fa-chart-line"></i>
                         <hr />
                         <h1>STATS</h1>
                     </div>
                     <div id="chartContainer">
                         <div className="row">
-                            <div className="col-lg-6">
-                                <h2>LAPS COMPARE</h2>
-                                <canvas id="laps"></canvas>
+                            <div className="col col-lg-6">
+                                <i className="fas fa-flag-checkered"></i>
+                                <h3 className="only-desktop" id="statSession">AVERAGE SPEED</h3>
+                                <hr />
+                                <h2>{this.state.avgSpeed} KM/H</h2>
                             </div>
-                            <div className="col-lg-6">
-                                <i className="fas fa-tachometer-alt"></i>
-                                <h3 id="statSession">AVERAGE SPEED</h3>
-                                <h1>452.65km/h</h1>
+                            <div className="col col-lg-6">
+                                <i className="fas fa-road"></i>
+                                <h3 className="only-desktop" id="statSession">GAP FROM THE FIRST</h3>
+                                <hr />
+                                <h2 id="statSession">{Base.getGap((this.state.bestTime * 1000), (this.state.bestDriverTime * 1000))}</h2>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-lg-6">
-                                <i className="fas fa-road"></i>
-                                <h3 id="statSession">GAP FROM THE FIRST</h3>
-                                <h1>+5.434</h1>
-                            </div>
-                            <div className="col-lg-6">
-                                <i className="fas fa-tachometer-alt"></i>
-                                <h3 id="statSession">GAP FROM THE FIRST</h3>
-                                <h1>452.65km/h</h1>
+                            <div className="col-12 col-lg-12">
+                                <i className="far fa-chart-bar"></i>
+                                <h3>LAP TREND:</h3>
+                                <canvas id="laps"></canvas>
                             </div>
                         </div>
                     </div>

@@ -57,7 +57,6 @@ class Session extends Component {
                             </thead>
                             <tbody>
                                 {
-
                                     this.state.data.map((time, i) => {
                                         let sesId = (window.location.href).split("/")[4];
                                         sesId = sesId.split("#")[0];
@@ -66,9 +65,9 @@ class Session extends Component {
                                             <tr>
                                                 <td>{i + 1}</td>
                                                 <td>{time.tim_driverName}</td>
-                                                <td className="only-desktop">{((time.tim_sectorOne === this.state.bestSessions.bestSectorOne ? <span className="bestEle">{ time.tim_sectorOne }</span> : time.tim_sectorOne))}</td>
-                                                <td className="only-desktop">{(time.tim_sectorTwo === this.state.bestSessions.bestSectorTwo ? <span className="bestEle">{ time.tim_sectorTwo }</span> : time.tim_sectorTwo)}</td>
-                                                <td className="only-desktop">{(time.tim_sectorTree === this.state.bestSessions.bestSectorTree ? <span className="bestEle">{ time.tim_sectorTree }</span> : time.tim_sectorTree)}</td>
+                                                <td className="only-desktop">{((time.tim_sectorOne === this.state.bestSessions.bestSectorOne ? <span className="bestEle">{time.tim_sectorOne}</span> : time.tim_sectorOne))}</td>
+                                                <td className="only-desktop">{(time.tim_sectorTwo === this.state.bestSessions.bestSectorTwo ? <span className="bestEle">{time.tim_sectorTwo}</span> : time.tim_sectorTwo)}</td>
+                                                <td className="only-desktop">{(time.tim_sectorTree === this.state.bestSessions.bestSectorTree ? <span className="bestEle">{time.tim_sectorTree}</span> : time.tim_sectorTree)}</td>
                                                 <td>{Base.getFullTime((time.tim_totalTime * 1000))}</td>
                                                 <td className="only-desktop">{Base.getGap((this.state.bestTime * 1000), (time.tim_totalTime * 1000))}</td>
                                                 <td><Link to={driverLink}><i className="fas fa-chart-line"></i></Link></td>
@@ -78,6 +77,9 @@ class Session extends Component {
                                 }
                             </tbody>
                         </table>
+                        <div id="tableFooter">
+                            <h5>OPTIMAL TIME: <span className="bestEle"> {Base.getFullTime((this.state.bestSessions.bestSectorOne * 1000) + (this.state.bestSessions.bestSectorTwo * 1000) + (this.state.bestSessions.bestSectorTree * 1000))} </span> </h5>
+                        </div>
                     </div>
                     <div id="arrowCont">
                         <a href="#2">

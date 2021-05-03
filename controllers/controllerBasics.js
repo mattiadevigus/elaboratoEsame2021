@@ -10,6 +10,5 @@ exports.getSessionTimes = (req, res) => {
 }
 
 exports.getSessionDetail = (req, res) => {
-    console.log(req.params);
-    db.driverDetail(req.params.id, req.params.driver);
+    res.send(db.driverDetail(req.params.id, req.params.driver));
 } 

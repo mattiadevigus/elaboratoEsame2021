@@ -56,7 +56,7 @@ exports.sessionDetails = (sessionId) => {
     stmt = db.prepare(`SELECT tim_driverName, tim_sectorOne, tim_sectorTwo, tim_sectorTree, sum(tim_sectorOne + tim_sectorTwo+ tim_sectorTree) as tim_totalTime FROM Times INNER JOIN Sessions on tim_sessionId = ses_id WHERE ses_id = ? GROUP BY tim_driverName, tim_sectorOne, tim_sectorTwo, tim_sectorTree ORDER BY tim_totalTime ASC LIMIT 1`);
     let bestTime = stmt.get(sessionId);
 
-    stmt = db.prepare(`SELECT min(tim_sectorOne) as bestSectorOne, min(tim_sectorTwo) as bestSectorTwo, min(tim_sectorTree) as bestSectorTree FROM Times INNER JOIN Sessions ON tim_sessionId = ses_id WHERE ses_id = ?`);
+    stmt = db.prepare(`SELECT min(tim_sectorOne) as bestSectorOne, min(tim_sectorTwo) as bestSectorTwo, min(tim_sectorTree) as bestSectorTree FROM (SELECT * FROM (SELECT *, sum(tim_sectorOne + tim_sectorTwo + tim_sectorTree) as tim_totalTime FROM Times INNER JOIN Sessions ON ses_id = tim_sessionId WHERE ses_id = ? GROUP BY tim_driverName, tim_sectorOne, tim_sectorTwo, tim_sectorTree ORDER BY tim_totalTime ASC) GROUP BY tim_driverName ORDER BY tim_totalTime ASC)`);
     let bestSectors = stmt.get(sessionId);
 
     db.close();
@@ -65,11 +65,21 @@ exports.sessionDetails = (sessionId) => {
 }
 
 exports.driverDetail = (sessionId, driverName) => {
-    let db = new sqlite(pathDb);
+    let db = new sqlite(pathDb/* , { verbose: console.log } */);
 
-    let stmt = db.prepare(`SELECT tim_sectorOne, tim_sectorTwo, tim_sectorTree FROM Times INNER JOIN Sessions ON tim_sessionId = ses_id WHERE ses_id = ? AND tim_driverName = ? ORDER BY tim_id ASC`);
+    let stmt = db.prepare(`SELECT * FROM (SELECT tim_sectorOne, tim_sectorTwo, tim_sectorTree, sum(tim_sectorOne + tim_sectorTwo + tim_sectorTree) as tim_totalTime FROM Times INNER JOIN Sessions ON ses_id = tim_sessionId WHERE ses_id = ? AND tim_driverName = ? GROUP BY tim_driverName, tim_sectorOne, tim_sectorTwo, tim_sectorTree);`);
     let times = stmt.all(sessionId, driverName);
 
-    console.log(times);
+    stmt = db.prepare(`SELECT * FROM (SELECT tra_km, sum(tim_sectorOne + tim_sectorTwo + tim_sectorTree) as tim_totalTime FROM Times INNER JOIN Sessions ON ses_id = tim_sessionId INNER JOIN Tracks ON ses_track = tra_nameCode WHERE ses_id = ? AND tim_driverName = ? GROUP BY tim_driverName, tim_sectorOne, tim_sectorTwo, tim_sectorTree ORDER BY tim_totalTime ASC LIMIT 1) ORDER BY tim_totalTime ASC`);
+    let avgSpeed = (timeParse.getAvg(stmt.get(sessionId, driverName))).toFixed(3);
 
+    stmt = db.prepare(`SELECT * FROM (SELECT sum(tim_sectorOne + tim_sectorTwo + tim_sectorTree) as tim_totalTime FROM Times INNER JOIN Sessions ON ses_id = tim_sessionId WHERE ses_id = ?  GROUP BY tim_driverName, tim_sectorOne, tim_sectorTwo, tim_sectorTree)ORDER BY tim_totalTime ASC LIMIT 1;`);
+    let bestTime = stmt.get(sessionId);
+
+    stmt = db.prepare(`SELECT * FROM (SELECT sum(tim_sectorOne + tim_sectorTwo + tim_sectorTree) as tim_totalTime FROM Times INNER JOIN Sessions ON ses_id = tim_sessionId WHERE ses_id = ? AND tim_driverName = ? GROUP BY tim_driverName, tim_sectorOne, tim_sectorTwo, tim_sectorTree)ORDER BY tim_totalTime ASC LIMIT 1;`);
+    let bestDriverTime = stmt.get(sessionId, driverName);
+
+    console.log(bestDriverTime);
+
+    return [times, avgSpeed, bestTime.tim_totalTime, bestDriverTime.tim_totalTime];
 }

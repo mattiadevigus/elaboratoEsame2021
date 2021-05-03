@@ -40,9 +40,16 @@ nav img {
     padding-right: 0.4em;
 }
 
+#particleJS #tsparticles canvas {
+    width: 100% !important;
+    height: 100% !important;
+    position: fixed;
+    z-index: -1;
+}
+
 #homeSection, #homeSection2, #sessionSection, #sessionSection2, #sessionDetailSection, #sessionDetailSection2 {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -149,12 +156,12 @@ nav img {
 #sessionList {
     display: block;
     position: sticky; 
-    max-height: 60vh;
+    max-height: 50vh;
     overflow-y: scroll;
     width: 100%;
     text-align: center;
     color: white;
-    border: 1px solid black;
+    box-shadow: 0 0 5px rgb(0, 0, 0);
 }
 
 #sessionList thead {
@@ -180,6 +187,7 @@ nav img {
     vertical-align: middle;
     color: #c5c5c5;
     text-align: center;
+    background-color: #15151e;
 }
 
 #sessionList td img {
@@ -201,6 +209,16 @@ nav img {
     font-size: 1.7rem;
 }
 
+#tableFooter {
+    background-color: #15151e;
+    padding: 10px;
+    box-shadow: 0 0 5px rgb(0, 0, 0);
+}
+
+#chartContainer {
+    width: 50%;
+}
+
 #chartContainer i {
     font-size: 5rem;
 }
@@ -218,7 +236,18 @@ nav img {
     align-self: center !important; 
 }
 
+.baseEle {
+    text-transform: uppercase;
+    color: #8b0000;
+}
+
+.personalBestEle {
+    text-transform: uppercase;
+    color: #129e00;
+}
+
 .bestEle {
+    text-transform: uppercase;
     color: #9e009e;
 }
 
@@ -236,11 +265,6 @@ nav img {
 }
 
 canvas {
-    width: 85% !important;
-    height: 85% !important;
+    width: 100%;
     margin: 0 auto;
-}
-
-#chartContainer  {
-    width: 60%;
 }
