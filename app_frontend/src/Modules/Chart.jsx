@@ -6,10 +6,10 @@ class Chart {
         new cjs(ctx, {
             type: 'line',
             data: {
-                labels: ['Start', 'S1', 'S2', 'S3'],
+                labels: ['Lap n', 'Lap n', 'Lap n', 'Lap n', 'Lap n', 'Lap n', 'Lap n'],
                 datasets: [
                     {
-                        data: [15, 23, 21, 20],
+                        data: [15, 16, 15, 14, 15, 12, 15],
                         lineTension: 0,
                         backgroundColor: [
                             'rgba(255, 255, 255, 0)',
@@ -24,6 +24,16 @@ class Chart {
             options: {
                 legend: {
                     display: false
+                },
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            color: "rgba(0, 0, 0, 0)",
+                        },
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
                 }
             }
         })

@@ -1,5 +1,5 @@
 body {
-    background-color: #202020;
+    background-color: #15151e;
     color: #c5c5c5;
 }
 
@@ -8,7 +8,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-    background: #202020;
+    background: #15151e;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -21,7 +21,7 @@ body {
 
 nav {
     border-bottom: 1px solid #8b0000;
-    background-color: #202020;
+    background-color: #15151e;
     box-shadow: 0 0 5px #080808 ;
 }
 
@@ -132,8 +132,12 @@ nav img {
     margin:50px
 }
 
-#homeTitle i, #sessionTitle i {
+#homeTitle i, #sessionTitle i, #sessionDetailTitle i{
     font-size: 40px;
+}
+
+#sessionDetailTitle {
+    margin: 10px;
 }
 
 #homeDesc {
@@ -157,7 +161,7 @@ nav img {
     position: sticky;
     top: 0;
     border-bottom: 1px solid #8b0000;
-    background-color: #1d1d1d;
+    background-color: #15151e;
     color: white;
     z-index: 1;
 }

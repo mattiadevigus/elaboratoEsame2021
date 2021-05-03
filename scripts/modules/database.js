@@ -62,5 +62,14 @@ exports.sessionDetails = (sessionId) => {
     db.close();
 
     return [serverInfo, driverCount, bestTime, bestSectors];
+}
+
+exports.driverDetail = (sessionId, driverName) => {
+    let db = new sqlite(pathDb);
+
+    let stmt = db.prepare(`SELECT tim_sectorOne, tim_sectorTwo, tim_sectorTree FROM Times INNER JOIN Sessions ON tim_sessionId = ses_id WHERE ses_id = ? AND tim_driverName = ? ORDER BY tim_id ASC`);
+    let times = stmt.all(sessionId, driverName);
+
+    console.log(times);
 
 }

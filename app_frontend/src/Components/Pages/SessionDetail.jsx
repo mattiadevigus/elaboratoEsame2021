@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Component } from 'react';
+import Navbar from './../Partials/Navbar';
 import Base from './../../Modules/Base';
 import ChartJS from './../../Modules/Chart';
 
@@ -49,8 +50,8 @@ class Chart extends Component {
                 </section>
                 <a name="2"></a>
                 <section id="sessionDetailSection2">
-                    <div id="sessionTitle">
-                        <i className="fas fa-poll-h"></i>
+                    <div id="sessionDetailTitle">
+                        <i className="fas fa-chart-line"></i>
                         <hr />
                         <h1>STATS</h1>
                     </div>
@@ -62,19 +63,19 @@ class Chart extends Component {
                             </div>
                             <div className="col-lg-6">
                                 <i className="fas fa-tachometer-alt"></i>
-                                <h1>AVERAGE SPEED</h1>
+                                <h3 id="statSession">AVERAGE SPEED</h3>
                                 <h1>452.65km/h</h1>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-lg-6">
-                                <i className="fas fa-tachometer-alt"></i>
-                                <h1>AVERAGE SPEED</h1>
-                                <h1>452.65km/h</h1>
+                                <i className="fas fa-road"></i>
+                                <h3 id="statSession">GAP FROM THE FIRST</h3>
+                                <h1>+5.434</h1>
                             </div>
                             <div className="col-lg-6">
                                 <i className="fas fa-tachometer-alt"></i>
-                                <h1>AVERAGE SPEED</h1>
+                                <h3 id="statSession">GAP FROM THE FIRST</h3>
                                 <h1>452.65km/h</h1>
                             </div>
                         </div>
