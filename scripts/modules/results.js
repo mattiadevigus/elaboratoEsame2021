@@ -2,16 +2,20 @@ const fs = require('fs');
 
 exports.getAllJsonFiles = (filespath) => {
     let arr = [];
-    let files = fs.readdirSync(filespath);
-    files.forEach(file => {
-        arr.push(this.getJsonFile(filespath + "\\" + file));
-    })
+    if (fs.existsSync(filespath)) {
+        console.log("esiste");
+        let files = fs.readdirSync(filespath);
+        files.forEach(file => {
+            arr.push(this.getJsonFile(filespath + "\\" + file));
+        });
+    }
 
     return arr;
 }
 
 exports.getJsonFile = (filename) => {
-    let data = fs.readFileSync(filename).toString();
+    let data;
+    data = fs.readFileSync(filename).toString();
     data = this.removeEscape(data);
 
     return data;
@@ -19,11 +23,13 @@ exports.getJsonFile = (filename) => {
 
 exports.getAllJsonDataCreation = (filespath) => {
     let dates = [];
-    let files = fs.readdirSync(filespath);
-    files.forEach(file => {
-        let dateCreation = fs.statSync((filespath + "\\" + file));
-        dates.push(dateCreation["birthtime"]);
-    })
+    if (fs.existsSync(filespath)) {
+        let files = fs.readdirSync(filespath);
+        files.forEach(file => {
+            let dateCreation = fs.statSync((filespath + "\\" + file));
+            dates.push(dateCreation["birthtime"]);
+        })
+    }
 
     return dates;
 }
@@ -63,13 +69,13 @@ exports.getFullLeaderBoard = (arr) => {
 exports.getAllLapsFromDriver = (arr, id) => {
     let times = [];
     let i = 0;
-    
+
     while (arr.laps[i] != undefined) {
         if (arr.laps[i].carId === id && arr.laps[i].isValidForBest === true) times.push(arr.laps[i].splits);
         i++;
     }
 
-    return times; 
+    return times;
 }
 
 exports.removeEscape = (string) => {
