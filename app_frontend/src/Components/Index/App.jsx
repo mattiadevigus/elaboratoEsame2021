@@ -72,7 +72,7 @@ class App extends Component {
                                                 <td><img className="only-desktop" src={session.tra_flag} alt="" /> <span className="only-desktop">|</span> <img src={session.tra_track} /></td>
                                                 <td className="only-desktop"> {(session.ses_weather < 0.1 ? <i className="fas fa-sun"></i> : <i className="fas fa-cloud-rain"></i>)} </td>
                                                 <td className="only-desktop">{session.ses_type}</td>
-                                                <td><Link target="_blank" to={`session/${session.ses_id}`}><i className="fas fa-arrow-circle-right"></i></Link></td>
+                                                <td><Link to={`session/${session.ses_id}`}><i className="fas fa-arrow-circle-right"></i></Link></td>
                                             </tr>
                                         )
                                     })}
