@@ -59,9 +59,9 @@ class Chart extends Component {
                                         return (
                                             <tr>
                                                 <td>{i + 1}</td>
-                                                <td className="only-desktop">{time.tim_sectorOne}</td>
-                                                <td className="only-desktop">{time.tim_sectorTwo}</td>
-                                                <td className="only-desktop">{time.tim_sectorTree}</td>
+                                                <td>{time.tim_sectorOne}</td>
+                                                <td>{time.tim_sectorTwo}</td>
+                                                <td>{time.tim_sectorTree}</td>
                                                 <td>{(time.tim_totalTime === this.state.bestDriverTime ? <span className="personalBestEle"> {Base.getFullTime((time.tim_totalTime * 1000))}</span> : Base.getFullTime((time.tim_totalTime * 1000)))}</td>
                                             </tr>
                                         )
@@ -89,7 +89,7 @@ class Chart extends Component {
                         <div className="row">
                             <div className="col col-lg-6">
                                 <i className="fas fa-flag-checkered"></i>
-                                <h3 className="only-desktop" id="statSession">AVERAGE SPEED</h3>
+                                <h3 className="only-desktop" id="statSession">AVERAGE SPEED (FL)</h3>
                                 <hr />
                                 <h2>{this.state.avgSpeed} KM/H</h2>
                             </div>

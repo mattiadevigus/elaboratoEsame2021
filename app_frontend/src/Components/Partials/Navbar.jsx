@@ -9,7 +9,9 @@ class Navbar extends Component {
                     <img className="navbar-brand" src="/img/helmet.png" alt="logo" />
                 </Link>
                 <div className="navbar-right justify-content-end">
-                    <i className="fas fa-sliders-h"></i>
+                    <Link to="/private">
+                    <h5><i className="fas fa-user"></i> PRIVATE AREA </h5>
+                    </Link>
                 </div>
             </nav>
         )

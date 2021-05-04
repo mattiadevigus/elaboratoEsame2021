@@ -7,6 +7,16 @@ h5 {
     margin: 5px !important;
 }
 
+a {
+    color: #c5c5c5;
+    text-decoration: none;
+    transition: .3s;
+}
+
+a:hover {
+    color: #8b0000;
+}
+
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -27,6 +37,7 @@ nav {
     border-bottom: 1px solid #8b0000;
     background-color: #15151e;
     box-shadow: 0 0 5px #080808 ;
+    padding: 0 !important;
 }
 
 nav span {

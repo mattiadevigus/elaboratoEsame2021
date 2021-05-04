@@ -25,6 +25,14 @@ and (max-width : 768px) {
         margin: 0 auto;
     }
 
+    #sessionTitle {
+        margin: 5px;
+    }
+
+    #chartContainer {
+        width: 100%;
+    }
+
 }
 
 /* Tablet */
@@ -47,6 +55,10 @@ and (max-width : 1400px) and (min-width: 990px) {
 
     #sessionContainer #statSession {
         font-size: 4em;
+    }
+
+    #sessionTitle {
+        margin: 10px;
     }
     
 }

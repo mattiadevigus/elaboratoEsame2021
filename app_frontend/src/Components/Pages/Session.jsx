@@ -77,7 +77,7 @@ class Session extends Component {
                                 }
                             </tbody>
                         </table>
-                        <div id="tableFooter">
+                        <div className="only-desktop" id="tableFooter">
                             <h5>OPTIMAL TIME: <span className="bestEle"> {Base.getFullTime((this.state.bestSessions.bestSectorOne * 1000) + (this.state.bestSessions.bestSectorTwo * 1000) + (this.state.bestSessions.bestSectorTree * 1000))} </span> </h5>
                         </div>
                     </div>

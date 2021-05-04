@@ -32,7 +32,7 @@ class Chart {
                     display: false
                 },
                 tooltips: {
-                    tooltipTitleFontSize: 0
+                    enabled: false
                 },
                 scales: {
                     yAxes: [{
@@ -47,7 +47,7 @@ class Chart {
                     }],
                     xAxes: [{
                         gridLines: {
-                            color: 'transparent'
+                            color: 'rgba(139, 0, 0, .3)'
                         },
 
                     }],
