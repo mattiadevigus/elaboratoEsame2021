@@ -31,7 +31,7 @@ class App extends Component {
                     <div id="homeContainer">
                         <img src="/img/icon.png" alt="" />
                         <hr />
-                        <p id="homeDesc">Car session timing system. Powered by Assetto Corsa Competizione Server <br /> Created by <a href="#">Mattia Devigus</a></p>
+                        <p id="homeDesc">Car session timing system<br /> Created by <a href="#">Mattia Devigus</a></p>
                         <hr />
                     </div>
                     <div id="arrowCont">
@@ -54,11 +54,8 @@ class App extends Component {
                         <table id="sessionList">
                             <thead>
                                 <tr>
-                                    <th>Server Name</th>
+                                    <th>Id</th>
                                     <th>Date</th>
-                                    <th>Track</th>
-                                    <th className="only-desktop">Weather</th>
-                                    <th className="only-desktop">Type</th>
                                     <th>Detail</th>
                                 </tr>
                             </thead>
@@ -67,15 +64,13 @@ class App extends Component {
                                     this.state.data.map((session, i) => {
                                         return (
                                             <tr>
-                                                <td>{session.ses_serverName}</td>
-                                                <td>{session.ses_creation.split("GMT")[0]}</td>
-                                                <td><img className="only-desktop" src={session.tra_flag} alt="" /> <span className="only-desktop">|</span> <img src={session.tra_track} /></td>
-                                                <td className="only-desktop"> {(session.ses_weather < 0.1 ? <i className="fas fa-sun"></i> : <i className="fas fa-cloud-rain"></i>)} </td>
-                                                <td className="only-desktop">{session.ses_type}</td>
-                                                <td><Link to={`session/${session.ses_id}`}><i className="fas fa-arrow-circle-right"></i></Link></td>
+                                                <td>{i + 1}</td>
+                                                <td>{session.tim_sessionDate}</td>
+                                                <td><Link to={`timing/${session.tim_sessionDate}`}><i className="fas fa-arrow-circle-right"></i></Link></td>
                                             </tr>
                                         )
-                                    })}
+                                    })
+                                }
                             </tbody>
                         </table>
                     </div>

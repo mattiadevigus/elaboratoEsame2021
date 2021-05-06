@@ -11,11 +11,12 @@ class Session extends Component {
 
         this.state = {
             data: [],
-            serverName: "",
-            weatherValue: "",
-            totalDrivers: 0,
-            bestTime: "",
-            bestSessions: []
+            sessionDate: "",
+            bestSectors: [],
+            totalLaps: 0,
+            optimalTime: 0,
+            totalLaps: 0,
+            bestTime: 0
         }
     }
 
@@ -24,9 +25,10 @@ class Session extends Component {
         let id = (window.location.href).split("/")[4];
         id = id.split("#")[0];
         document.title = `Session detail: ${id}`;
-        axios.get(`http://${Base.getIp()}:${Base.getPort()}/session/${id}`)
+        axios.get(`http://${Base.getIp()}:${Base.getPort()}/timing/${id}`)
             .then(res => {
-                this.setState({ data: res.data[0], serverName: res.data[1][0].ses_serverName, weatherValue: res.data[1][0].ses_weather, totalDrivers: res.data[1][1].tim_driverCount, bestTime: res.data[1][2].tim_totalTime, bestSessions: res.data[1][3] });
+                console.log(res.data);
+                this.setState({ data: res.data[0], sessionDate: id, bestSectors: res.data[1][0], bestTime: res.data[2], totalLaps: res.data[3] });
             })
 
     }
@@ -46,12 +48,10 @@ class Session extends Component {
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Full Name</th>
                                     <th className="only-desktop">S1</th>
                                     <th className="only-desktop">S2</th>
                                     <th className="only-desktop">S3</th>
                                     <th>Time</th>
-                                    <th className="only-desktop">Gap</th>
                                     <th>Detail</th>
                                 </tr>
                             </thead>
@@ -64,13 +64,11 @@ class Session extends Component {
                                         return (
                                             <tr>
                                                 <td>{i + 1}</td>
-                                                <td>{time.tim_driverName}</td>
-                                                <td className="only-desktop">{((time.tim_sectorOne === this.state.bestSessions.bestSectorOne ? <span className="bestEle">{time.tim_sectorOne}</span> : time.tim_sectorOne))}</td>
-                                                <td className="only-desktop">{(time.tim_sectorTwo === this.state.bestSessions.bestSectorTwo ? <span className="bestEle">{time.tim_sectorTwo}</span> : time.tim_sectorTwo)}</td>
-                                                <td className="only-desktop">{(time.tim_sectorTree === this.state.bestSessions.bestSectorTree ? <span className="bestEle">{time.tim_sectorTree}</span> : time.tim_sectorTree)}</td>
+                                                <td className="only-desktop">{((time.tim_sectorOne === this.state.bestSectors.bestSectorOne ? <span className="bestEle">{time.tim_sectorOne}</span> : time.tim_sectorOne))}</td>
+                                                <td className="only-desktop">{(time.tim_sectorTwo === this.state.bestSectors.bestSectorTwo ? <span className="bestEle">{time.tim_sectorTwo}</span> : time.tim_sectorTwo)}</td>
+                                                <td className="only-desktop">{(time.tim_sectorTree === this.state.bestSectors.bestSectorTree ? <span className="bestEle">{time.tim_sectorTree}</span> : time.tim_sectorTree)}</td>
                                                 <td>{Base.getFullTime((time.tim_totalTime * 1000))}</td>
-                                                <td className="only-desktop">{Base.getGap((this.state.bestTime * 1000), (time.tim_totalTime * 1000))}</td>
-                                                <td><Link to={driverLink}><i className="fas fa-chart-line"></i></Link></td>
+                                                <td><Link><i className="fas fa-chart-line"></i></Link></td>
                                             </tr>
                                         )
                                     })
@@ -78,7 +76,7 @@ class Session extends Component {
                             </tbody>
                         </table>
                         <div className="only-desktop" id="tableFooter">
-                            <h5>OPTIMAL TIME: <span className="bestEle"> {Base.getFullTime((this.state.bestSessions.bestSectorOne * 1000) + (this.state.bestSessions.bestSectorTwo * 1000) + (this.state.bestSessions.bestSectorTree * 1000))} </span> </h5>
+                            <h5>OPTIMAL TIME: <span className="bestEle"> {Base.getFullTime((this.state.bestSectors.bestSectorOne * 1000) + (this.state.bestSectors.bestSectorTwo * 1000) + (this.state.bestSectors.bestSectorTree * 1000))} </span> </h5>
                         </div>
                     </div>
                     <div id="arrowCont">
@@ -99,32 +97,23 @@ class Session extends Component {
                     </div>
                     <div id="sessionContainer">
                         <div className="row">
-                            <div className="col-lg-1"></div>
-                            <div className="col-6 col-lg-5">
-                                <h1 id="statSession"><i className="fas fa-server"></i></h1>
+                            <div className="col-6 col-lg-6">
+                                <h1 id="statSession"><i className="fas fa-calendar"></i></h1>
                                 <hr />
-                                <h3 id="statSession">{this.state.serverName}</h3>
+                                <h3 id="statSession">{this.state.sessionDate}</h3>
                             </div>
-                            <div className="col-6 col-lg-5">
-                                <h1 id="statSession" className="bestEle">{Base.getFullTime((this.state.bestTime * 1000))}</h1>
+                            <div className="col-6 col-lg-6">
+                                <h1 id="statSession" className="bestEle">{Base.getFullTime((this.state.bestTime.tim_totalTime * 1000))}</h1>
                                 <hr />
                                 <h3 id="statSession">BEST TIME SESSION</h3>
                             </div>
-                            <div className="col-lg-1"></div>
                         </div>
                         <div className="row">
-                            <div className="col-lg-1"></div>
-                            <div className="col-6 col-lg-5">
-                                <h1 id="statSession"> {this.state.totalDrivers}</h1>
+                            <div className="col-12 col-lg-12">
+                                <h1 id="statSession"> {this.state.totalLaps.tim_totalLaps}</h1>
                                 <hr />
-                                <h3 id="statSession">TOTAL DRIVERS</h3>
+                                <h3 id="statSession">TOTAL LAPS</h3>
                             </div>
-                            <div className="col-6 col-lg-5">
-                                <h1 className="rotate" id="statSession"> {(this.state.weatherValue <= 0 ? <i className="fas fa-sun fa-spin"></i> : <i className="fas fa-cloud-rain"></i>)} </h1>
-                                <hr />
-                                <h3 id="statSession">WEATHER TYPE</h3>
-                            </div>
-                            <div className="col-lg-1"></div>
                         </div>
                     </div>
                 </section>

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import App from './Components/Index/App';
 import Session from './Components/Pages/Session';
-import SessionDetail from './Components/Pages/SessionDetail';
 import Particles from 'react-particles-js';
 
 
@@ -29,8 +28,7 @@ ReactDOM.render(
       <Router>
         <Switch>
           <Route exact path="/" component={() => <App />} />
-          <Route exact path="/session/:id" component={() => <Session />} />
-          <Route exact path="/session/:id/:driver" component={() => <SessionDetail />} />
+          <Route exact path="/timing/:id" component={() => <Session />} />
           <App />
         </Switch>
       </Router>
