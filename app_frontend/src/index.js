@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Particles from 'react-particles-js';
 import App from './Components/Index/App';
 import Session from './Components/Pages/Session';
 import Login from './Components/Pages/Private/Login';

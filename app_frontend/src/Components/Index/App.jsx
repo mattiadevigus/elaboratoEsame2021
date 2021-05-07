@@ -31,11 +31,11 @@ class App extends Component {
                     <div id="homeContainer">
                         <img src="/img/icon.png" alt="" />
                         <hr />
-                        <p id="homeDesc">Car session timing system<br /> Created by <a href="#">Mattia Devigus</a></p>
+                        <p id="homeDesc">Car session timing system<br /> Created by <a href="/#">Mattia Devigus</a></p>
                         <hr />
                     </div>
                     <div id="arrowCont">
-                        <a href="#2">
+                        <a href="/#2">
                             <div className="arrow">
                                 <span></span>
                                 <span></span>

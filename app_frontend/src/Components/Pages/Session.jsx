@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import Navbar from './../Partials/Navbar';
 import Base from '../../Modules/Base';
 import Chart from '../../Modules/Chart';
@@ -60,9 +59,6 @@ class Session extends Component {
                             <tbody>
                                 {
                                     this.state.data.map((time, i) => {
-                                        let sesId = (window.location.href).split("/")[4];
-                                        sesId = sesId.split("#")[0];
-                                        console.log("best:" + this.state.bestTime + "\n Time:" + time.tim_totalTime)
                                         return (
                                             <tr>
                                                 <td>{i + 1}</td>
@@ -70,7 +66,7 @@ class Session extends Component {
                                                 <td className="only-desktop">{(time.tim_sectorTwo === this.state.bestSectors.bestSectorTwo ? <span className="bestEle">{time.tim_sectorTwo}</span> : time.tim_sectorTwo)}</td>
                                                 <td className="only-desktop">{(time.tim_sectorTree === this.state.bestSectors.bestSectorTree ? <span className="bestEle">{time.tim_sectorTree}</span> : time.tim_sectorTree)}</td>
                                                 <td>{(time.tim_totalTime === this.state.bestTime.tim_totalTime ? <span className="bestEle">{Base.getFullTime((time.tim_totalTime * 1000))}</span> : Base.getFullTime((time.tim_totalTime * 1000)))}</td>
-                                                <td><Link><i className="fas fa-chart-line"></i></Link></td>
+                                                <td><i className="fas fa-chart-line"></i></td>
                                             </tr>
                                         )
                                     })
@@ -128,6 +124,18 @@ class Session extends Component {
                     <div id="chartContainer">
                         <canvas id="laps"></canvas>
                     </div>
+                    <div id="legend">
+                        <div className="row">
+                            <div className="col-6">
+                                <h5><i className="fas fa-square red"></i></h5> <h5>Session times</h5>
+                            </div>
+                            <div className="col-6">
+                                <h5><i className="fas fa-square"></i></h5> <h5>Average</h5>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </section>
             </div >
         )

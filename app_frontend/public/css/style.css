@@ -381,6 +381,14 @@ canvas {
     width: 8%;
 }
 
+#legend {
+    width: 15%;
+}
+
+.red {
+    color: #8b0000;
+}
+
 textarea:hover, 
 input:hover, 
 textarea:active, 

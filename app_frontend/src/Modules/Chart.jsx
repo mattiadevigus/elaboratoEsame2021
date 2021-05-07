@@ -16,20 +16,27 @@ class Chart {
                 labels: arrTimesFormatted,
                 datasets: [
                     {   
+                        label: "Laps",
                         data: arrTimes,
-                        backgroundColor: [
-                            "rgba(139, 0, 0, .6)",
-                        ],
+                        backgroundColor: "rgba(139, 0, 0, .3)",
                         borderColor: "rgba(139, 0, 0, 1)",
                         fillColor: "rgba(210,27,71,0)",
                         borderWidth: 3
                     },
-                ]
+                    {   
+                        data: this.calculateAvgArray(times),
+                        backgroundColor: "rgba(139, 0, 0, 0)",
+                        borderColor: "#fff",
+                        fillColor: "rgba(210,27,71,0)",
+                        borderWidth: 1
+                    },
+                ],
+
             },
             options: {
                 responsive:true,
                 legend: {
-                    display: false
+                    display: false,
                 },
                 tooltips: {
                     enabled: false
@@ -55,6 +62,21 @@ class Chart {
             }
         })
     }
+
+    calculateAvgArray = (times) => {
+        let avg = [];
+        let sum = 0;
+        let i = 1;
+
+        for(let time of times) {
+            avg.push(((sum+time.tim_totalTime) / i));
+            sum = sum + time.tim_totalTime;
+            i++;
+        } 
+
+        return avg;
+    }
+
 
 }
 

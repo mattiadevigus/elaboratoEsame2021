@@ -10,7 +10,7 @@ class Navbar extends Component {
                 </Link>
                 <div className="navbar-right justify-content-end">
                     <Link to="/login">
-                    <h5><i className="fas fa-user"></i> PRIVATE AREA </h5>
+                    <h5><i className="fas fa-user"></i>  |  PRIVATE AREA </h5>
                     </Link>
                 </div>
             </nav>
