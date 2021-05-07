@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Navbar from './../Partials/Navbar';
 import Base from '../../Modules/Base';
+import Chart from '../../Modules/Chart';
 
 
 class Session extends Component {
@@ -29,6 +30,7 @@ class Session extends Component {
             .then(res => {
                 console.log(res.data);
                 this.setState({ data: res.data[0], sessionDate: id, bestSectors: res.data[1][0], bestTime: res.data[2], totalLaps: res.data[3] });
+                Chart.lineChart("laps", res.data[0]);
             })
 
     }
@@ -117,7 +119,17 @@ class Session extends Component {
                         </div>
                     </div>
                 </section>
-            </div>
+                <section id="sessionSection2">
+                    <div id="sessionTitle">
+                        <i className="fas fa-poll-h"></i>
+                        <hr />
+                        <h1>LAPS SEQUENCE</h1>
+                    </div>
+                    <div id="chartContainer">
+                        <canvas id="laps"></canvas>
+                    </div>
+                </section>
+            </div >
         )
     }
 }
