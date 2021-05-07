@@ -8,4 +8,7 @@ router
 router
     .get("/timing/:id", controllerBasics.getSessionTimes);
 
+router
+    .post("/login", controllerBasics.postLogin)
+
 module.exports = router;

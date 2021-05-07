@@ -16,7 +16,7 @@ class App extends Component {
 
     componentDidMount = () => {
         window.scrollTo(0, 0);
-
+        document.title = `Vtracker`;
         axios.get(`http://${Base.getIp()}:${Base.getPort()}`)
             .then((res) => {
                 this.setState({ data: res.data });

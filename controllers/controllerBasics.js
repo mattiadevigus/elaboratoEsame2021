@@ -1,9 +1,14 @@
 const db = require('./../scripts/modules/database');
 
-exports.getHome = (req, res) => {
-    res.send(db.sessionCollections());
+exports.getHome = async (req, res) => {
+    res.send(await db.sessionCollections());
 }
 
-exports.getSessionTimes = (req, res) => {
-    res.send(db.timesCollection(req.params.id));
+exports.getSessionTimes = async(req, res) => {
+    console.log(await db.timesCollection(req.params.id));
+    res.send(await db.timesCollection(req.params.id));
+}
+
+exports.postLogin = (req, res) => {
+    console.log(req.body);
 }

@@ -26,13 +26,13 @@ class Session extends Component {
         let id = (window.location.href).split("/")[4];
         id = id.split("#")[0];
         document.title = `Session detail: ${id}`;
+
         axios.get(`http://${Base.getIp()}:${Base.getPort()}/timing/${id}`)
             .then(res => {
-                console.log(res.data);
-                this.setState({ data: res.data[0], sessionDate: id, bestSectors: res.data[1][0], bestTime: res.data[2], totalLaps: res.data[3] });
+                console.log(res);
+                this.setState({ data: res.data[0], sessionDate: id, bestSectors: res.data[1][0], bestTime: res.data[2][0], totalLaps: res.data[3][0] });
                 Chart.lineChart("laps", res.data[0]);
             })
-
     }
 
     render = () => {
@@ -62,14 +62,14 @@ class Session extends Component {
                                     this.state.data.map((time, i) => {
                                         let sesId = (window.location.href).split("/")[4];
                                         sesId = sesId.split("#")[0];
-                                        let driverLink = "/session/" + sesId + "/" + time.tim_driverName;
+                                        console.log("best:" + this.state.bestTime + "\n Time:" + time.tim_totalTime)
                                         return (
                                             <tr>
                                                 <td>{i + 1}</td>
                                                 <td className="only-desktop">{((time.tim_sectorOne === this.state.bestSectors.bestSectorOne ? <span className="bestEle">{time.tim_sectorOne}</span> : time.tim_sectorOne))}</td>
                                                 <td className="only-desktop">{(time.tim_sectorTwo === this.state.bestSectors.bestSectorTwo ? <span className="bestEle">{time.tim_sectorTwo}</span> : time.tim_sectorTwo)}</td>
                                                 <td className="only-desktop">{(time.tim_sectorTree === this.state.bestSectors.bestSectorTree ? <span className="bestEle">{time.tim_sectorTree}</span> : time.tim_sectorTree)}</td>
-                                                <td>{Base.getFullTime((time.tim_totalTime * 1000))}</td>
+                                                <td>{(time.tim_totalTime === this.state.bestTime.tim_totalTime ? <span className="bestEle">{Base.getFullTime((time.tim_totalTime * 1000))}</span> : Base.getFullTime((time.tim_totalTime * 1000)))}</td>
                                                 <td><Link><i className="fas fa-chart-line"></i></Link></td>
                                             </tr>
                                         )
@@ -107,7 +107,7 @@ class Session extends Component {
                             <div className="col-6 col-lg-6">
                                 <h1 id="statSession" className="bestEle">{Base.getFullTime((this.state.bestTime.tim_totalTime * 1000))}</h1>
                                 <hr />
-                                <h3 id="statSession">BEST TIME SESSION</h3>
+                                <h3 id="statSession">BEST TIME</h3>
                             </div>
                         </div>
                         <div className="row">
@@ -123,7 +123,7 @@ class Session extends Component {
                     <div id="sessionTitle">
                         <i className="fas fa-poll-h"></i>
                         <hr />
-                        <h1>LAPS SEQUENCE</h1>
+                        <h1>LAP TREND</h1>
                     </div>
                     <div id="chartContainer">
                         <canvas id="laps"></canvas>
