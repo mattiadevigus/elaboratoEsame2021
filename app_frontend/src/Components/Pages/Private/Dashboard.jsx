@@ -21,6 +21,7 @@ class Dashboard extends Component {
                                 <button><i className="fas fa-3x fa-sign-in-alt"></i> <hr /> <h5>EXIT FROM YOUR ACCOUNT</h5></button>
                             </div>
                         </div>
+                        <hr />
                     </div>
                 </section>
             </div>
