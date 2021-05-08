@@ -7,6 +7,14 @@ exports.getPort = () => {
     return 9000;
 }
 
+exports.checkLogin = () => {
+    if(sessionStorage.getItem("token") === null) {
+        window.location.replace("/login");
+    }
+
+    return;
+}
+
 exports.getFullTime = (seconds) => {
     let tot;
     let duration = seconds / 1000;

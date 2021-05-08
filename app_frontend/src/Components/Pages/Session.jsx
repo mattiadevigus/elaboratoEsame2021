@@ -53,7 +53,6 @@ class Session extends Component {
                                     <th className="only-desktop">S2</th>
                                     <th className="only-desktop">S3</th>
                                     <th>Time</th>
-                                    <th>Detail</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -66,7 +65,6 @@ class Session extends Component {
                                                 <td className="only-desktop">{(time.tim_sectorTwo === this.state.bestSectors.bestSectorTwo ? <span className="bestEle">{time.tim_sectorTwo}</span> : time.tim_sectorTwo)}</td>
                                                 <td className="only-desktop">{(time.tim_sectorTree === this.state.bestSectors.bestSectorTree ? <span className="bestEle">{time.tim_sectorTree}</span> : time.tim_sectorTree)}</td>
                                                 <td>{(time.tim_totalTime === this.state.bestTime.tim_totalTime ? <span className="bestEle">{Base.getFullTime((time.tim_totalTime * 1000))}</span> : Base.getFullTime((time.tim_totalTime * 1000)))}</td>
-                                                <td><i className="fas fa-chart-line"></i></td>
                                             </tr>
                                         )
                                     })

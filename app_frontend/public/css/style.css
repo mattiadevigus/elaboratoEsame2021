@@ -7,14 +7,15 @@ h5 {
     margin: 5px !important;
 }
 
-a {
+a, .i-link {
     color: #c5c5c5;
     text-decoration: none;
     transition: .3s;
 }
 
-a:hover {
+a:hover, .i-link:hover  {
     color: #8b0000;
+    cursor: pointer;
 }
 
 ::-webkit-scrollbar {
@@ -388,6 +389,7 @@ canvas {
 .red {
     color: #8b0000;
 }
+
 
 textarea:hover, 
 input:hover, 

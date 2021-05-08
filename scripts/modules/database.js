@@ -2,8 +2,6 @@ const pathDb = "./public/tracker.db";
 const timeParse = require('./time');
 const mysql = require('mysql2');
 
-
-
 exports.sessionCollections = async () => {
     const db = await mysql.createConnection({ host: 'localhost', user: 'root', database: 'tracker' });
 
@@ -23,4 +21,31 @@ exports.timesCollection = async (sessionDate) => {
 
     db.destroy();
     return [JSON.parse(JSON.stringify(times[0])), JSON.parse(JSON.stringify(bestSectors[0])), JSON.parse(JSON.stringify(bestTime[0])), JSON.parse(JSON.stringify(lapCount[0]))];
+}
+
+exports.allTimes = async () => {
+    const db = await mysql.createConnection({ host: 'localhost', user: 'root', database: 'tracker' });
+
+    const times = await db.promise().query(`SELECT * FROM (SELECT *, sum(tim_sectorOne + tim_sectorTwo + tim_sectorTree) as tim_totalTime FROM Times GROUP BY tim_id ORDER BY tim_sessionDate ASC) t`);
+
+    db.destroy();
+    return (JSON.parse(JSON.stringify(times[0])));
+}
+
+exports.checkLogin = async (credentials) => {
+    const db = await mysql.createConnection({ host: 'localhost', user: 'root', database: 'tracker' });
+
+    const check = await db.promise().query(`SELECT count(usr_email) as usr_check FROM Users WHERE usr_email = "${credentials.email}" AND usr_password = "${credentials.password}";`);
+
+    db.destroy();
+    return JSON.parse(JSON.stringify(check[0]));
+}
+
+exports.deleteTime = async (id) => {
+    const db = await mysql.createConnection({ host: 'localhost', user: 'root', database: 'tracker' });
+
+    await db.promise().query(`DELETE FROM Times WHERE tim_id = ${id}`);
+
+    db.destroy();
+    return true;
 }

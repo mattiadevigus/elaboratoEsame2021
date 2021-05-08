@@ -3,13 +3,21 @@ import { Component } from 'react';
 import Base from './../../../Modules/Base';
 import Navbar from './../../Partials/Navbar';
 
+
 class Login extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             email: "",
-            password: ""
+            password: "",
+            errorMessage: ""
+        }
+    }
+
+    componentDidMount = () => {
+        if(sessionStorage.getItem("token") !== null) {
+            window.location.replace("/dashboard");
         }
     }
 
@@ -21,7 +29,12 @@ class Login extends Component {
         e.preventDefault();
         axios.post(`http://${Base.getIp()}:${Base.getPort()}/login`, this.state)
             .then(res => {
-                console.log(res);
+                if(res.data[0].usr_check === 0) {
+                    this.setState({ errorMessage: "Wrong Credentials!" });
+                } else {
+                    sessionStorage.setItem("token", this.state.email);
+                    window.location.replace("/dashboard");
+                }
             })
     }
 
@@ -42,7 +55,7 @@ class Login extends Component {
                         <input type="password" name="password" id="password" placeholder="PASSWORD" value={this.state.password} onChange={this.changeHandler} />
 
                         <hr />
-
+                        <p className="red">{this.state.errorMessage}</p>
                         <button>Go</button>
                     </form>
                 </section>

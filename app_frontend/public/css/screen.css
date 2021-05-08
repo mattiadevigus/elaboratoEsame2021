@@ -45,6 +45,10 @@ and (max-width : 768px) {
         width: 46%;
     }
 
+    #legend {
+        width: 50%;
+    }
+
 }
 
 /* Tablet */
@@ -61,6 +65,10 @@ and (max-width : 989px) and (min-width : 769px) {
 
     #formSection form img {
         max-width: 100%;
+    }
+
+    #legend {
+        width: 50%;
     }
 }
 

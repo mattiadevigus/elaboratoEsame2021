@@ -1,7 +1,14 @@
 import { Component } from 'react';
+import { Link } from 'react-router-dom';
+import Base from './../../../Modules/Base';
 import Navbar from './../../Partials/Navbar';
 
 class Dashboard extends Component {
+
+    componentDidMount = () => {
+        Base.checkLogin();
+    }
+
     render = () => {
         return (
             <div>
@@ -12,19 +19,21 @@ class Dashboard extends Component {
                         <hr />
                         <div className="row">
                             <div className="col">
-                                <button><i className="fas fa-3x fa-stream" /> <hr /> <h5>MANAGE SESSION TIMETABLE</h5></button>
+                                <Link to="/timetable">
+                                    <button><i className="fas fa-3x fa-stream" /> <hr /> <h5>MANAGE SESSION TIMETABLE</h5></button>
+                                </Link>
                             </div>
                             <div className="col">
-                                <button><i className="fas fa-3x fa-user-circle" /> <hr /> <h5>EDIT YOUR ACCOUNT PROFILE</h5></button>
-                            </div>
-                            <div className="col">
-                                <button><i className="fas fa-3x fa-sign-in-alt"></i> <hr /> <h5>EXIT FROM YOUR ACCOUNT</h5></button>
+                                <button onClick={() => {
+                                    sessionStorage.removeItem("token");
+                                    window.location.replace("/");
+                                }} ><i className="fas fa-3x fa-sign-in-alt"></i> <hr /> <h5>EXIT FROM YOUR ACCOUNT</h5></button>
                             </div>
                         </div>
                         <hr />
                     </div>
                 </section>
-            </div>
+            </div >
         )
     }
 }

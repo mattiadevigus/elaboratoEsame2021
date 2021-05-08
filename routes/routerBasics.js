@@ -9,6 +9,12 @@ router
     .get("/timing/:id", controllerBasics.getSessionTimes);
 
 router
-    .post("/login", controllerBasics.postLogin)
+    .post("/login", controllerBasics.postLogin);
+
+router
+    .get("/timetable", controllerBasics.getTimetable);
+
+router
+    .post("/delete/:id", controllerBasics.deleteTime);
 
 module.exports = router;

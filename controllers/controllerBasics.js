@@ -4,11 +4,18 @@ exports.getHome = async (req, res) => {
     res.send(await db.sessionCollections());
 }
 
-exports.getSessionTimes = async(req, res) => {
-    console.log(await db.timesCollection(req.params.id));
+exports.getSessionTimes = async (req, res) => {
     res.send(await db.timesCollection(req.params.id));
 }
 
-exports.postLogin = (req, res) => {
-    console.log(req.body);
+exports.postLogin = async (req, res) => {
+    res.send(await db.checkLogin(req.body));
+}
+
+exports.getTimetable = async (req, res) => {
+    res.send(await db.allTimes());
+}
+
+exports.deleteTime = async (req, res) => {
+    res.send(await db.deleteTime(req.params.id));
 }
