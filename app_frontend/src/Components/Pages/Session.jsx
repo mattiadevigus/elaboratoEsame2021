@@ -87,7 +87,7 @@ class Session extends Component {
                 <a name="2"></a>
                 <section id="sessionSection2">
                     <div id="sessionTitle">
-                        <i className="fas fa-poll-h"></i>
+                        <i className="fas fa-info-circle"></i>
                         <hr />
                         <h1>DETAILS</h1>
                     </div>
@@ -115,7 +115,7 @@ class Session extends Component {
                 </section>
                 <section id="sessionSection2">
                     <div id="sessionTitle">
-                        <i className="fas fa-poll-h"></i>
+                        <i className="fas fa-poll"></i>
                         <hr />
                         <h1>LAP TREND</h1>
                     </div>
