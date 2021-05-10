@@ -51,8 +51,8 @@ class Login extends Component {
                         <span>Please, insert your credentials to access in private area</span>
                         <hr />
 
-                        <input type="email" name="email" id="email" placeholder="EMAIL" value={this.state.username} onChange={this.changeHandler} />
-                        <input type="password" name="password" id="password" placeholder="PASSWORD" value={this.state.password} onChange={this.changeHandler} />
+                        <input type="email" name="email" id="email" placeholder="EMAIL" value={this.state.username} onChange={this.changeHandler} required />
+                        <input type="password" name="password" id="password" placeholder="PASSWORD" value={this.state.password} onChange={this.changeHandler} required/>
 
                         <hr />
                         <p className="red">{this.state.errorMessage}</p>

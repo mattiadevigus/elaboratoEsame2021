@@ -390,6 +390,10 @@ canvas {
     color: #8b0000;
 }
 
+#dashboardContainer {
+    width: 55%;
+}
+
 
 textarea:hover, 
 input:hover, 

@@ -15,7 +15,7 @@ class Dashboard extends Component {
                 <Navbar />
                 <section className="w3-animate-opacity" id="dashboardSection">
                     <img src="/img/icon.png" alt="" />
-                    <div className="container">
+                    <div id="dashboardContainer">
                         <hr />
                         <div className="row">
                             <div className="col">

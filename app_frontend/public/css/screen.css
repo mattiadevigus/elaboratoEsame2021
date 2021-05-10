@@ -90,7 +90,8 @@ and (max-width : 1400px) and (min-width: 990px) {
     }
     
     #formSection form {
-        max-width: 80%;
+        max-width: 60%;
+        padding: 20px;
     }
 
     #formSection form img {
