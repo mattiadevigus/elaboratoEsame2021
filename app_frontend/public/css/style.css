@@ -394,6 +394,21 @@ canvas {
     width: 55%;
 }
 
+footer {
+    text-align: center;
+}
+
+footer .row {
+    margin: 10px !important;
+}
+
+footer .row i {
+    padding: 1rem !important; 
+}
+
+.footer-icon {
+    width: 15%;
+}
 
 textarea:hover, 
 input:hover, 

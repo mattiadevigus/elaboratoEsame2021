@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Base from './../../../Modules/Base';
 import Navbar from './../../Partials/Navbar';
+import Footer from './../../Partials/Footer';
 
 class Dashboard extends Component {
 
@@ -33,6 +34,7 @@ class Dashboard extends Component {
                         <hr />
                     </div>
                 </section>
+                <Footer />
             </div >
         )
     }

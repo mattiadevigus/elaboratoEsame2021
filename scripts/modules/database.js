@@ -4,7 +4,7 @@ const mysql = require('mysql2');
 
 exports.sessionCollections = async () => {
     const db = mysql.createConnection({ host: '93.38.56.135', user: 'root', password: 'elaborato', database: 'tracker' });
-
+    
     const sessions = await db.promise().query(`SELECT tim_sessionDate FROM Times GROUP BY tim_sessionDate`);
 
     db.destroy();

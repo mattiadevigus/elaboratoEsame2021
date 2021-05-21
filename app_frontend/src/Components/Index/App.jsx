@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Navbar from './../Partials/Navbar';
 import Base from '../../Modules/Base';
 import axios from 'axios';
+import Footer from './../Partials/Footer';
 
 class App extends Component {
 
@@ -75,6 +76,7 @@ class App extends Component {
                         </table>
                     </div>
                 </section>
+                <Footer />
             </div >
         )
     }

@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import axios from 'axios';
 import Navbar from './../Partials/Navbar';
+import Footer from './../Partials/Footer';
 import Base from '../../Modules/Base';
 import Chart from '../../Modules/Chart';
 
@@ -132,9 +133,8 @@ class Session extends Component {
                             </div>
                         </div>
                     </div>
-
-
                 </section>
+                <Footer />
             </div >
         )
     }
