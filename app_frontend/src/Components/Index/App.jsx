@@ -67,7 +67,7 @@ class App extends Component {
                                             <tr>
                                                 <td>{i + 1}</td>
                                                 <td>{session.tim_sessionDate}</td>
-                                                <td><Link to={`timing/${session.tim_sessionDate}`}><i className="fas fa-arrow-circle-right"></i></Link></td>
+                                                <td><Link to={`sessionDetail/${session.tim_sessionDate}`}><i className="fas fa-arrow-circle-right"></i></Link></td>
                                             </tr>
                                         )
                                     })

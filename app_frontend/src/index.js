@@ -17,7 +17,7 @@ ReactDOM.render(
       <Router>
         <Switch>
           <Route exact path="/" component={() => <App />} />
-          <Route exact path="/timing/:id" component={() => <Session />} />
+          <Route exact path="/sessionDetail/:id" component={() => <Session />} />
           <Route exact path="/login" component={() => <Login />} />
           <Route exact path="/dashboard" component={() => <Dashboard />} />
           <Route exact path="/timetable" component={() => <Timetable />} />
