@@ -2,8 +2,13 @@ const pathDb = "./public/tracker.db";
 const timeParse = require('./time');
 const mysql = require('mysql2');
 
+const hostname = "localhost";
+const username = "root";
+const passwordValue = "";
+const databaseName = "tracker"
+
 exports.sessionCollections = async () => {
-    const db = mysql.createConnection({ host: '93.38.56.135', user: 'root', password: 'elaborato', database: 'tracker' });
+    const db = mysql.createConnection({ host: hostname, user: username, password: passwordValue, database: databaseName });
     
     const sessions = await db.promise().query(`SELECT tim_sessionDate FROM Times GROUP BY tim_sessionDate`);
 
@@ -12,7 +17,7 @@ exports.sessionCollections = async () => {
 }
 
 exports.timesCollection = async (sessionDate) => {
-    const db = mysql.createConnection({ host: '93.38.56.135', user: 'root', password: 'elaborato', database: 'tracker' });
+    const db = mysql.createConnection({ host: hostname, user: username, password: passwordValue, database: databaseName });
 
     const times = await db.promise().query(`SELECT * FROM (SELECT *, sum(tim_sectorOne + tim_sectorTwo + tim_sectorTree) as tim_totalTime FROM Times WHERE tim_sessionDate = "${sessionDate}" GROUP BY tim_id) t;`);
     const bestSectors = await db.promise().query(`SELECT min(tim_sectorOne) as bestSectorOne, min(tim_sectorTwo) as bestSectorTwo, min(tim_sectorTree) as bestSectorTree FROM Times WHERE tim_sessionDate = "${sessionDate}";`);
@@ -24,7 +29,7 @@ exports.timesCollection = async (sessionDate) => {
 }
 
 exports.allTimes = async () => {
-    const db = mysql.createConnection({ host: '93.38.56.135', user: 'root', password: 'elaborato', database: 'tracker' });
+    const db = mysql.createConnection({ host: hostname, user: username, password: passwordValue, database: databaseName });
 
     const times = await db.promise().query(`SELECT * FROM (SELECT *, sum(tim_sectorOne + tim_sectorTwo + tim_sectorTree) as tim_totalTime FROM Times GROUP BY tim_id ORDER BY tim_sessionDate ASC) t`);
 
@@ -33,7 +38,7 @@ exports.allTimes = async () => {
 }
 
 exports.checkLogin = async (credentials) => {
-    const db = mysql.createConnection({ host: '93.38.56.135', user: 'root', password: 'elaborato', database: 'tracker' });
+    const db = mysql.createConnection({ host: hostname, user: username, password: passwordValue, database: databaseName });
 
     const check = await db.promise().query(`SELECT count(usr_email) as usr_check FROM Users WHERE usr_email = "${credentials.email}" AND usr_password = "${credentials.password}";`);
 
@@ -42,7 +47,7 @@ exports.checkLogin = async (credentials) => {
 }
 
 exports.deleteTime = async (id) => {
-    const db = mysql.createConnection({ host: '93.38.56.135', user: 'root', password: 'elaborato', database: 'tracker' });
+    const db = mysql.createConnection({ host: hostname, user: username, password: passwordValue, database: databaseName });
 
     await db.promise().query(`DELETE FROM Times WHERE tim_id = ${id}`);
 
