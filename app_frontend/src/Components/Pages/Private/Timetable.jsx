@@ -53,8 +53,10 @@ class Timetable extends Component {
                                                 <td className="only-desktop">{time.tim_sessionDate}</td>
                                                 <td>{Base.getFullTime((time.tim_totalTime * 1000))}</td>
                                                 <td><i onClick={() => {
-                                                    axios.post(`http://${Base.getIp()}:${Base.getPort()}/delete/${time.tim_id}`)
-                                                        .then(() => {window.location.replace("/timetable")});
+                                                    if (window.confirm('Are you sure you want to cancel time?')) {
+                                                        axios.post(`http://${Base.getIp()}:${Base.getPort()}/delete/${time.tim_id}`)
+                                                            .then(() => { window.location.replace("/timetable") });
+                                                    }
                                                 }} className="i-link far fa-trash-alt"></i></td>
                                             </tr>
                                         )
