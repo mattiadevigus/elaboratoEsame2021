@@ -14,7 +14,6 @@ class Session extends Component {
             data: [],
             sessionDate: "",
             bestSectors: [],
-            totalLaps: 0,
             optimalTime: 0,
             totalLaps: 0,
             bestTime: 0
